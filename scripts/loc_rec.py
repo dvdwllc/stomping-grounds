@@ -4,6 +4,7 @@ import numpy as np
 from sqlalchemy import create_engine
 from scripts import mapcalc, get_user_POIs
 import geocoder
+import matplotlib.pyplot as plt
 
 # Initializes database with filename baltimore.db in current directory
 disk_engine = create_engine('sqlite:///baltimore.db') 
@@ -23,22 +24,25 @@ class recommender(object):
     def compute_maps(self):
         for i in range(self.n_queries):
             q = self.queries[i]
+            print q
             # If query is for a database with unique identifier columns
             if type(q) == tuple:
                 if q[0] == 'arrests':
                     result = \
-                    pd.read_sql_query('SELECT Latitude, Longitude FROM {} '
-                                      'WHERE {} = "{}"'.format(q[0], q[1], q[2])
+                    pd.read_sql_query('SELECT Latitude, Longitude FROM "{}" '
+                                      'WHERE "{}" = "{}"'.format(q[0], q[1], q[2])
                                       , disk_engine)
                     # Compute heatmap (2D histogram)
+                    print result['Latitude'][0]
                     self.maps.append(\
                     mapcalc.hist2d_bmoredata(result, 0, 0) + 1.0)
                     print 'generated heatmap for query %i' % i
                 else:
                     result = \
-                    pd.read_sql_query('SELECT Latitude, Longitude FROM {} '
-                                      'WHERE {} = "{}"'.format(q[0], q[1], q[2])
+                    pd.read_sql_query('SELECT Latitude, Longitude FROM "{}" '
+                                      'WHERE "{}" = "{}"'.format(q[0], q[1], q[2])
                                       , disk_engine)
+                    print result['Latitude'][0]
                     # Compute heatmap (2D grid of distance to nearest POI)
                     self.maps.append(mapcalc.compute_distances_to_POIs(result))
                     print 'generated heatmap for query %i' % i
@@ -50,6 +54,7 @@ class recommender(object):
                     pd.read_sql_query('SELECT Latitude, Longitude '
                     				  'FROM vacancies '
                                       , disk_engine)
+                    print result['Latitude'][0]
                     # Compute heatmap (2D histogram)
                     self.maps.append(mapcalc.hist2d_bmoredata(result, 0, 0)+1.0)
                     print 'generated heatmap for query %i\n' % i
@@ -57,6 +62,7 @@ class recommender(object):
                 # If query is a user-input address
                 else:
                     result = get_user_POIs.add_user_POI(q)
+                    print result
                     try:
                       	# Compute heatmap (2D grid of distance to nearest POI)
                       	self.maps.append\
@@ -72,6 +78,22 @@ class recommender(object):
         print '%i out of %i heatmaps were included in the calculation\n' % \
         				(len(map_array), self.n_queries, )
         return heatmap
+    
+    def recommend_location_map(self):
+        map_array = np.array(self.maps)
+        heatmap = np.prod((1.0 / map_array), axis=0)
+        print '%i out of %i heatmaps were included in the calculation\n' % \
+        				(len(map_array), self.n_queries, )
+        lowest_val = np.amin(1.0/heatmap)
+        print np.argwhere(1.0/heatmap == lowest_val)[0]
+        opt_lat, opt_lon = np.argwhere(1.0/heatmap == lowest_val)[0]
+        mapcalc.plot_distances_to_POIs(heatmap)
+        address = geocoder.google('%.10f, %.10f' % \
+                    (mapcalc.y[opt_lat], mapcalc.x[opt_lon])).address
+        plt.savefig('static/recommendation.png', dpi=300, bbox_inches='tight')
+        return address
+   
+   
    
 if __name__ == '__main__':
 	import matplotlib.pyplot as plt
@@ -80,8 +102,7 @@ if __name__ == '__main__':
 	q1 = 'groceries', 'type', 'Full Supermarket'
 	q2 = 'arrests', 'Offense', '87-Narcotics'
 	q3 = 'vacancies'    
-	my_spot = recommender([JHU,Fells,q1,q2,q3])
+	my_spot = recommender([Fells,q1,q2,q3])
 	my_spot.compute_maps()
-	loc_map = my_spot.recommend_location()
-	mapcalc.plot_distances_to_POIs(loc_map)
-	plt.show() 
+	loc_map = my_spot.recommend_location_map()
+	print 'You should search for a property near %s' % loc_map
