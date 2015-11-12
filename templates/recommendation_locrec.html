@@ -1,0 +1,12 @@
+<!doctype html>
+<title>Baltimore Location Recommendation</title>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='stylesheet.css')}}'>
+<div class=page>
+  <h1>Baltimore Location Recommendation</h1>
+    <h2>
+You should search for a property near {{address}}.
+    </h2>
+    <p>Here is the heatmap (dark red is a good location, dark blue is bad):</p>
+    <img src='/static/recommendation.png' width='500'>
+  </div>
+</div>

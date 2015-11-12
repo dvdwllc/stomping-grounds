@@ -1,0 +1,25 @@
+<!doctype html>
+<title>Baltimore Location Recommendation</title>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='stylesheet.css')}}'>
+<div class=page>
+  <h1>Baltimore Location Recommendation</h1>
+  <div class=metanav>
+
+    <h2>
+      Please enter the address for a point of interest in Baltimore
+    </h2>
+    <p>
+    For example, this could be your workplace or a popular public attraction. I will then recommend a safe spot that is near that location and also has easy access to grocery stores.
+    </p>
+
+    <form id='index_locrec' method='POST' action='main_locrec' >
+      <p>
+    Address: <input type='text' name='address'>
+      </p>
+      <p>
+    <input type='submit' value='Submit'>
+      </p>
+    </form>
+
+  </div>
+</div>
