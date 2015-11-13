@@ -8,7 +8,6 @@ app_locrec = Flask(__name__)
 @app_locrec.route('/index_locrec', methods=['GET', 'POST'])
 def index_locrec():
 	if request.method == 'GET':
-		print 'GET'
 		return render_template('address_entry_locrec.html')
 	else:
 		special_address = request.form['address']
@@ -37,4 +36,4 @@ def index_locrec():
 
 
 if __name__ == '__main__':
-	app_locrec.run(debug=False)
+	app_locrec.run()
