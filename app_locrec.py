@@ -10,8 +10,9 @@ def index_locrec():
 	if request.method == 'GET':
 		return render_template('address_entry_locrec.html')
 	else:
+		print 'POST!'
 		special_address = request.form['address']
-
+		print special_address
 		recommendation = \
 			scripts.loc_rec.recommender(
 				(special_address,
