@@ -1,1 +1,1 @@
-web: .app_locrec --log-file -
+web: python app_locrec.py --log-file -
