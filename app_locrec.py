@@ -25,6 +25,7 @@ def index_locrec():
 
 		# returns ideal address and saves a plot 'recommendation.png'
 		best_address = recommendation.recommend_location_map()
+		print best_address
 
 		with open('all_queries.txt', 'w') as outfile:
 			outfile.write(special_address + '\n')
