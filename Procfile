@@ -1,1 +1,1 @@
-web: python app_locrec.py --log-file -
+web: gunicorn .app_locrec --log-file -
