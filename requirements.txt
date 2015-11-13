@@ -3,7 +3,6 @@ appscript==1.0.1
 argcomplete==0.8.4
 astropy==1.0.1
 backports.ssl-match-hostname==3.4.0.2
-basemap==1.0.7
 bcolz==0.8.1
 beautifulsoup4==4.3.2
 binstar==0.10.1
