@@ -30,8 +30,8 @@ def index_locrec():
 		with open('all_queries.txt', 'w') as outfile:
 			outfile.write(special_address + '\n')
 
-		return render_template('recommendation_locrec.html',address=best_address,image='static/recommendation.png')
+		return render_template('recommendation_locrec.html',address=best_address,image='/static/recommendation.png')
 
 
 if __name__ == '__main__':
-	app_locrec.run()
+	app_locrec.run(debug=True)
