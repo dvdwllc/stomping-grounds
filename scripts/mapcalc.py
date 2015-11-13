@@ -91,7 +91,24 @@ def plot_distances_to_POIs(mindists, POIs=[]):
 
         plt.plot(lons, lats, 'x', color='red')
 
-    return 1
+    return x,y,mindists
+
+def produce_map_for_app(mindists):
+    """
+    Plots a 2D heatmap of distance to nearest POI.
+
+    :param mindists:
+     npts by npts array of distances to nearest POI
+    :param POIs:
+     2xn array of latitudes and longitudes of each POI
+     -or-
+     Pandas dataframe containing 'Latitude' and 'Longitude' columns for
+     each POI
+    :return:
+     1
+    """
+
+    return x,y,mindists
 
 
 def hist2d_bmoredata(POIs, plot=True, masked=True):
