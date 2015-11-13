@@ -1,5 +1,5 @@
-A location recommendation engine. Combines location-based datasets such as crime statistics, school locations, restaurant locations, and user-defined points of interest, and produces a recommendation for where the user should search for a home or storefront. 
-Currently contains for Baltimore city only.
+A <em>loc</em>ation <em>rec</em>ommendation engine. Combines location-based datasets such as crime statistics, school locations, restaurant locations, and user-defined points of interest, and produces a recommendation for where the user should search for a home or storefront. 
+Currently contains data for Baltimore city only.
 
 This project is built on:
 <ul>
