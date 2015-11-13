@@ -1,1 +1,1 @@
-web: python app_locrec.py ${PORT}
+web: python app_locrec.py
