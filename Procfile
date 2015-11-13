@@ -1,1 +1,2 @@
-web: python app_locrec.py
+web: gunicorn app_locrec:app_locrec
+
