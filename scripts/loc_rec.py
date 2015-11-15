@@ -3,8 +3,6 @@ import numpy as np
 from sqlalchemy import create_engine
 from scripts import mapcalc, get_user_POIs
 import geocoder
-import matplotlib.pyplot as plt
-import time
 
 # Initializes database with filename baltimore.db in current directory
 disk_engine = create_engine('sqlite:///baltimore.db')
@@ -22,7 +20,6 @@ class recommender(object):
         self.queries = queries
         self.n_queries = len(self.queries)
         self.maps = []
-        print 'there are %i queries' % self.n_queries
 
     def compute_maps(self):
         for i in range(self.n_queries):
@@ -70,17 +67,17 @@ class recommender(object):
                         self.maps.append \
                             (mapcalc.compute_distances_to_POIs(result))
 
-                    except TypeError as e:
+                    except TypeError:
                         print 'Failed to geocode manually entered location.'
 
     def recommend_location(self):
         # compute heatmap
         map_array = np.array(self.maps)
-        heatmap = np.prod((1.0 / map_array), axis=0)
-        lowest_val = np.amin(1.0 / heatmap)
+        heatmap = np.prod((map_array), axis=0)
+        lowest_val = np.amin(heatmap)
 
         # find hottest spot
-        opt_lat, opt_lon = np.argwhere(1.0 / heatmap == lowest_val)[0]
+        opt_lat, opt_lon = np.argwhere(heatmap == lowest_val)[0]
 
         # determine address from lat/lon of hottest spot
         address = geocoder.google('%.10f, %.10f' % (
@@ -91,14 +88,13 @@ class recommender(object):
 
     def recommendation_map(self):
         map_array = np.array(self.maps)
-        heatmap = np.prod((1.0 / map_array), axis=0)
-        x, y, heatmap = mapcalc.produce_map_for_app(heatmap)
+        heatmap = np.prod((map_array), axis=0)
+        x, y, heatmap = mapcalc.produce_map_for_app(1.0 / heatmap)
 
         return x, y, heatmap
 
 
 if __name__ == '__main__':
-    import matplotlib.pyplot as plt
 
     JHU = ('3400 N Charles St, Baltimore, MD')
     Fells = ('Fells Point, Baltimore, MD')
