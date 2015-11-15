@@ -4,9 +4,11 @@
 <div class=page>
   <h1>Location Recommendation - Baltimore</h1>
     <h2>
-You should search for a property near {{address}}.
+    You asked for a good location near {{original_address}}.
     </h2>
-    <p>Here is the heatmap (dark red is a good location, dark blue is bad):</p>
-    <img src='{{image}}' width='500'>
+    <p>Here is the heatmap (dark red is a good location, dark blue is bad).
+        Based on the data, I recommend you search for a location near:<br><em>{{recommended_address}}</em>
+    </p>
+    <img src="{{ url_for('img', special_address = original_address) }}"  width='500' alt="recommendation map">
   </div>
 </div>

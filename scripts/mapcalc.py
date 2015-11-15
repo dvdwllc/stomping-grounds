@@ -14,7 +14,6 @@ latmax = 39.38
 # (total number of points is npts**2)
 npts = 60
 
-
 x = np.linspace(lonmin, lonmax, npts)
 y = np.linspace(latmin, latmax, npts)
 
@@ -23,9 +22,10 @@ city_limits = np.array([(39.371582, -76.711036), (39.370668, -76.529172),
                         (39.206985, -76.584790), (39.232519, -76.610883),
                         (39.278245, -76.710446), (39.371582, -76.711036)])
 
+
 def compute_distances_to_POIs(POIs):
-	"""
-	Computes the distance to the nearest Point Of Interest (POI)
+    """
+    Computes the distance to the nearest Point Of Interest (POI)
     for every point in the npts x npts grid of latitudes and longitudes.
 
     :param POIs:
@@ -38,25 +38,25 @@ def compute_distances_to_POIs(POIs):
         npts x npts array of distance to nearest POI
 
     """
-	# get POI's
-	try:
-		# if coordinates as arrays
-		lons, lats = POIs[:, 1], POIs[:, 0]
-	except TypeError:
-		# if coordinates in pandas dataframe
-		lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
+    # get POI's
+    try:
+        # if coordinates as arrays
+        lons, lats = POIs[:, 1], POIs[:, 0]
+    except TypeError:
+        # if coordinates in pandas dataframe
+        lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
 
-	# initialize distances to large values
-	mindists = 100.0 * np.ones((npts, npts))
+    # initialize distances to large values
+    mindists = 100.0 * np.ones((npts, npts))
 
-	# iterate through all points in lat/lon grid
-	for i in range(len(x)):  # iterate through longitudes
-		for j in range(len(y)):  # iterate through latitudes
-			for k in range(len(POIs)):  # find closest POI in array
-				dist = np.hypot((x[i] - lons[k]), (y[j] - lats[k]))
-				if dist < mindists[j][i]:
-					mindists[j][i] = dist  # save distance to closes POI
-	return mindists
+    # iterate through all points in lat/lon grid
+    for i in range(len(x)):  # iterate through longitudes
+        for j in range(len(y)):  # iterate through latitudes
+            for k in range(len(POIs)):  # find closest POI in array
+                dist = np.hypot((x[i] - lons[k]), (y[j] - lats[k]))
+                if dist < mindists[j][i]:
+                    mindists[j][i] = dist  # save distance to closes POI
+    return mindists
 
 
 def plot_distances_to_POIs(mindists, POIs=[]):
@@ -74,24 +74,25 @@ def plot_distances_to_POIs(mindists, POIs=[]):
      1
     """
 
-    plt.figure(figsize=(5,5))
-    plt.axis([lonmin,lonmax,latmin,latmax])
-    plt.pcolormesh(x,y,mindists)
+    plt.figure(figsize=(5, 5))
+    plt.axis([lonmin, lonmax, latmin, latmax])
+    plt.pcolormesh(x, y, mindists)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
-    plt.plot(city_limits[:,1], city_limits[:,0], color='red')
+    plt.plot(city_limits[:, 1], city_limits[:, 0], color='red')
 
-    if len(POIs) != 0: # get POI's
+    if len(POIs) != 0:  # get POI's
         try:
             # if coordinates as arrays
-            lons, lats = POIs[:,1], POIs[:,0]
+            lons, lats = POIs[:, 1], POIs[:, 0]
         except TypeError:
             # if coordinates in pandas dataframe
             lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
 
         plt.plot(lons, lats, 'x', color='red')
 
-    return x,y,mindists
+    return x, y, mindists
+
 
 def produce_map_for_app(mindists):
     """
@@ -99,16 +100,11 @@ def produce_map_for_app(mindists):
 
     :param mindists:
      npts by npts array of distances to nearest POI
-    :param POIs:
-     2xn array of latitudes and longitudes of each POI
-     -or-
-     Pandas dataframe containing 'Latitude' and 'Longitude' columns for
-     each POI
     :return:
-     1
+     x, y, mindists
     """
 
-    return x,y,mindists
+    return x, y, mindists
 
 
 def hist2d_bmoredata(POIs, plot=True, masked=True):
@@ -128,7 +124,7 @@ def hist2d_bmoredata(POIs, plot=True, masked=True):
     """
     # get POI's
     try:
-    # if coordinates as arrays
+        # if coordinates as arrays
         lons, lats = POIs[:, 1], POIs[:, 0]
     except TypeError:
         # if coordinates in pandas dataframe
