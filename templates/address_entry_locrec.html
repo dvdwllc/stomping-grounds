@@ -5,25 +5,25 @@
   <h1>Location Recommendation - Baltimore</h1>
   <div class=metanav>
 
-    <h2>Searching for a new home or business location in Baltimore? Let me help!
+    <h2>
+        Searching for a new home or business location in Baltimore? Let me help!
     </h2>
-    <p>In the field below, enter the address of a location in Baltimore that you'd like your new home or storefront to be close to.
-        I'll then take into account the following data to recommend a good location:
-        <ul>
-            <li>Crime statistics (lots of crime is bad)</li>
-            <li>Vacant homes (lots of vacant homes are bad)</li>
-            <li>Grocery store locations (being close to full grocery stores is good)</li>
-        </ul>
-    You can also leave the field blank to view the default query.
+    <p>
+        In the field below, enter the address of a location in Baltimore that you'd like your new home or business to be close to. Then check the boxes next to the criteria that are important to you.
+        When you click 'submit,' all of your criteria will be taken into account in order to produce a location recommendation.
     </p>
 
     <form id='index_locrec' method='POST' action='/' >
-      <p>
-    Address: <input type='text' name='address'>
-      </p>
-      <p>
-    <input type='submit' value='Submit'>
-      </p>
+     <p>
+        Address: <input type='text' name='address'><br>
+        <input type="checkbox" name="arrests_data" value="True"> Low level of crime<br>
+        <input type="checkbox" name="vacant_homes_data" value="True"> Low rate of vacant buildings<br>
+        <input type="checkbox" name="grocery_data" value="True"> Access to full supermarkets<br>
+        <!--<input type="checkbox" name="top50_data" value="True"> Access to top 50 restaurants<br> -->
+    </p>
+     <p>
+        <input type='submit' value='Submit'>
+     </p>
     </form>
 
   </div>

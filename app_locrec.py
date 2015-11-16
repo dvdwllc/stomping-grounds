@@ -1,58 +1,92 @@
 import scripts.loc_rec
-
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, session
 import numpy as np
 import matplotlib.pyplot as plt
+from nocache import nocache
 
 app_locrec = Flask(__name__)
-
+app_locrec.config['SECRET_KEY'] = 'F#$6432fdsY$WTREWgfdassu54agfdsjyt;.,;gfd'
 
 @app_locrec.route('/', methods=['GET', 'POST'])
+@nocache
 def index_locrec():
     if request.method == 'GET':
         return render_template('address_entry_locrec.html')
     else:
-        requested_address = request.form['address']
+        # determine what to query
+        session['address'] = request.form['address']
+        session['arrests'] = 'arrests_data' in request.form
+        session['grocery'] = 'grocery_data' in request.form
+        session['vacancy'] = 'vacant_homes_data' in request.form
+        session['top50'] = 'top50_data' in request.form
 
-        if len(requested_address) < 5:
-            query_address = '3400 N. Charles St., Baltimore, MD'
-        else:
-            query_address = requested_address
-        recommendation = \
-            scripts.loc_rec.recommender(
-                (query_address,
-                 ('arrests', 'Offense', '87-Narcotics'),
-                 ('groceries', 'type', 'Full Supermarket'),
-                 'vacancies'
-                 )
+        if len(session['address']) == 0 and not (
+                            session['arrests'] or
+                            session['grocery'] or
+                            session['vacancy'] or
+                            session['top50']
+        ):
+            print 'Default Query!'
+            query = ('3400 N. Charles St., Baltimore, MD',
+                     ('arrests', 'Offense', 'Unknown Offense'),
+                     ('groceries', 'type', 'Full Supermarket'),
+                     'vacancies'
+                     )
+            session['query'] = query
+
+            # build the recommendation map
+            recommendation = scripts.loc_rec.recommender(session['query'])
+            recommendation.compute_maps()
+
+            # get ideal address
+            best_address = recommendation.recommend_location()
+
+            print 'Trying to render default query'
+            return render_template(
+                'recommendation_locrec.html',
+                recommended_address=best_address,
+                query=query
             )
 
-        recommendation.compute_maps()
+        else:
+            print 'Not a default query!'
+            query = []
+            if len(session['address']) > 0:
+                import geocoder
+                try:
+                    latlng = geocoder.arcgis(session['address']).latlng
+                    if len(latlng) > 0:
+                        query.append(session['address'])
+                except:
+                    pass
+            if session['arrests']:
+                query.append(('arrests', 'Offense', 'Unknown Offense'))
+            if session['grocery']:
+                query.append(('groceries', 'type', 'Full Supermarket'))
+            if session['vacancy']:
+                query.append('vacancies')
+            if session['top50']:
+                query.append('top50')
 
-        # returns ideal address
-        best_address = recommendation.recommend_location()
+            session['query'] = query
+            recommendation = scripts.loc_rec.recommender(session['query'])
 
-        return render_template(
-            'recommendation_locrec.html',
-            recommended_address=best_address,
-            original_address=query_address
-        )
+            recommendation.compute_maps()
+
+            # returns ideal address
+            best_address = recommendation.recommend_location()
+
+            return render_template(
+                'recommendation_locrec.html',
+                recommended_address=best_address
+            )
 
 
-@app_locrec.route('/img/<path:special_address>', methods=['GET'])
-def img(special_address):
-    if special_address == '':
-        query_address = '3400 N. Charles St., Baltimore, MD'
-    else:
-        query_address = special_address
-
-    recommendation = scripts.loc_rec.recommender(
-        (query_address,
-        ('arrests', 'Offense', '87-Narcotics'),
-        ('groceries', 'type', 'Full Supermarket'),
-        'vacancies')
-    )
-
+@app_locrec.route('/img', methods=['GET'])
+@nocache
+def img():
+    query = session['query']
+    recommendation = scripts.loc_rec.recommender(query)
     recommendation.compute_maps()
     x, y, heatmap = recommendation.recommendation_map()
 
@@ -78,4 +112,4 @@ def img(special_address):
 
 
 if __name__ == '__main__':
-    app_locrec.run(debug=True)
+    app_locrec.run(debug=False)
