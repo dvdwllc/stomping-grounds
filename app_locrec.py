@@ -117,4 +117,4 @@ def img():
 
 
 if __name__ == '__main__':
-    app_locrec.run(debug=True)
+    app_locrec.run(debug=False)
