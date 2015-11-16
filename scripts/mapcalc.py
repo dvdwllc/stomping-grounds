@@ -12,7 +12,7 @@ latmax = 39.38
 
 # number of points along each map edge
 # (total number of points is npts**2)
-npts = 60
+npts = 100
 
 x = np.linspace(lonmin, lonmax, npts)
 y = np.linspace(latmin, latmax, npts)
