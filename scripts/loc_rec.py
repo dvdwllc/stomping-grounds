@@ -42,22 +42,24 @@ class recommender(object):
                         mapcalc.hist2d_bmoredata(result, 0, 0) + 1.0)
 
                 else:
-
                     # Compute heatmap (2D grid of distance to nearest POI)
                     self.maps.append(mapcalc.compute_distances_to_POIs(result))
 
             else:
                 # If query is database with no unique identifiers
-                if q == 'vacancies' or q == 'restaurants':
+                if q == 'vacancies' or q == 'restaurants' or q == 'top50':
 
                     formatted_query = (
                         'SELECT Latitude, Longitude FROM "{}";'.format(q)
                     )
 
                     result = pd.read_sql_query(formatted_query, disk_engine)
-
-                    # Compute heatmap (2D histogram)
-                    self.maps.append(mapcalc.hist2d_bmoredata(result, 0, 0) + 1.0)
+                    if q == 'vacancies':
+                        # Compute heatmap (2D histogram)
+                        self.maps.append(mapcalc.hist2d_bmoredata(result, 0, 0) + 1.0)
+                    else:
+                        # Compute heatmap (2D grid of distance to nearest POI)
+                        self.maps.append(mapcalc.compute_distances_to_POIs(result))
 
                 # If query is a user-input address
                 else:
@@ -95,7 +97,7 @@ class recommender(object):
 
 
 if __name__ == '__main__':
-
+    #for testing purposes
     JHU = ('3400 N Charles St, Baltimore, MD')
     Fells = ('Fells Point, Baltimore, MD')
     q1 = 'groceries', 'type', 'Full Supermarket'

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from nocache import nocache
 
 app_locrec = Flask(__name__)
+# if you're reading this, don't look at the next line. It's SECRET ;)
 app_locrec.config['SECRET_KEY'] = 'F#$6432fdsY$WTREWgfdassu54agfdsjyt;.,;gfd'
 
 @app_locrec.route('/', methods=['GET', 'POST'])
@@ -20,6 +21,7 @@ def index_locrec():
         session['vacancy'] = 'vacant_homes_data' in request.form
         session['top50'] = 'top50_data' in request.form
 
+        # if all fields empty, show the default query
         if len(session['address']) == 0 and not (
                             session['arrests'] or
                             session['grocery'] or
@@ -27,29 +29,30 @@ def index_locrec():
                             session['top50']
         ):
             print 'Default Query!'
-            query = ('3400 N. Charles St., Baltimore, MD',
+            query = ('22 N Green St., Baltimore, MD',
                      ('arrests', 'Offense', 'Unknown Offense'),
                      ('groceries', 'type', 'Full Supermarket'),
                      'vacancies'
                      )
-            session['query'] = query
 
             # build the recommendation map
+            session['query'] = query
             recommendation = scripts.loc_rec.recommender(session['query'])
             recommendation.compute_maps()
 
             # get ideal address
-            best_address = recommendation.recommend_location()
+            session['best_address'] = recommendation.recommend_location()
 
-            print 'Trying to render default query'
+            # render the results page
             return render_template(
                 'recommendation_locrec.html',
-                recommended_address=best_address,
+                recommended_address=session['best_address'],
                 query=query
             )
 
+        # User-defined query
         else:
-            print 'Not a default query!'
+            # build a properly formatted query
             query = []
             if len(session['address']) > 0:
                 import geocoder
@@ -68,17 +71,18 @@ def index_locrec():
             if session['top50']:
                 query.append('top50')
 
+            # build the recommendation map
             session['query'] = query
             recommendation = scripts.loc_rec.recommender(session['query'])
-
             recommendation.compute_maps()
 
-            # returns ideal address
-            best_address = recommendation.recommend_location()
+            # return ideal address
+            session['best_address'] = recommendation.recommend_location()
 
+            # render the results page
             return render_template(
                 'recommendation_locrec.html',
-                recommended_address=best_address
+                recommended_address=session['best_address']
             )
 
 
@@ -90,8 +94,7 @@ def img():
     recommendation.compute_maps()
     x, y, heatmap = recommendation.recommendation_map()
 
-    print x[0]
-
+    # Outline of Baltimore City
     city_limits = np.array([(39.371582, -76.711036), (39.370668, -76.529172),
                             (39.209645, -76.529172), (39.196875, -76.549085),
                             (39.206985, -76.584790), (39.232519, -76.610883),
@@ -99,11 +102,13 @@ def img():
 
 
     plt.figure(figsize=(5, 5))
+    plt.title('Best location:\n%s' % session['best_address']).set_fontsize(12)
     plt.axis([x[0], x[-1], y[0], y[-1]])
     plt.pcolormesh(x, y, heatmap)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
-    plt.plot(city_limits[:, 1], city_limits[:, 0], color='red')
+    plt.plot(city_limits[:, 1], city_limits[:, 0], color='red', label='City limits')
+    plt.legend(bbox_to_anchor=(0.05, 0.05), loc=3, borderaxespad=0., fancybox=True, framealpha=0.5)
     plt.subplots_adjust(left=0.2, right=0.9, top=0.9, bottom=0.1)
 
     plt.savefig('image.png', dpi=300)
@@ -112,4 +117,4 @@ def img():
 
 
 if __name__ == '__main__':
-    app_locrec.run(debug=False)
+    app_locrec.run(debug=True)
