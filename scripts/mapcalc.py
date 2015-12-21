@@ -23,8 +23,37 @@ city_limits = np.array([(39.371582, -76.711036), (39.370668, -76.529172),
                         (39.278245, -76.710446), (39.371582, -76.711036)])
 
 
+def smooth_map(H, npts):
+	"""
+	smooths the provided heatmap by taking the average of each cell and its
+	8 nearest neighbors.
+	:param map: 2D heatmap
+	:param npts: number of points along each axis of the 2D grid.
+	:return: smoothed, normalized heatmap (2D array)
+	"""
+	Hsmooth = np.zeros((npts, npts))
+
+	for i in range(1, npts - 1):
+		for j in range(1, npts - 1):
+			Hsmooth[i, j] = np.mean(
+				(
+					H[i, j],
+					H[i - 1, j],
+					H[i + 1, j],
+					H[i, j - 1],
+					H[i, j + 1],
+					H[i + 1, j + 1],
+					H[i - 1, j - 1],
+					H[i + 1, j - 1],
+					H[i - 1, j + 1]
+				)
+			)
+
+	return Hsmooth / float(np.argmax(Hsmooth)) + 1
+
+
 def compute_distances_to_POIs(POIs):
-    """
+	"""
     Computes the distance to the nearest Point Of Interest (POI)
     for every point in the npts x npts grid of latitudes and longitudes.
 
@@ -38,29 +67,31 @@ def compute_distances_to_POIs(POIs):
         npts x npts array of distance to nearest POI
 
     """
-    # get POI's
-    try:
-        # if coordinates as arrays
-        lons, lats = POIs[:, 1], POIs[:, 0]
-    except TypeError:
-        # if coordinates in pandas dataframe
-        lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
+	# get POI's
+	try:
+		# if coordinates as arrays
+		lons, lats = POIs[:, 1], POIs[:, 0]
+	except TypeError:
+		# if coordinates in pandas dataframe
+		lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
 
-    # initialize distances to large values
-    mindists = 100.0 * np.ones((npts, npts))
+	# initialize distances to large values
+	mindists = 100.0 * np.ones((npts, npts))
 
-    # iterate through all points in lat/lon grid
-    for i in range(len(x)):  # iterate through longitudes
-        for j in range(len(y)):  # iterate through latitudes
-            for k in range(len(POIs)):  # find closest POI in array
-                dist = np.hypot((x[i] - lons[k]), (y[j] - lats[k]))
-                if dist < mindists[j][i]:
-                    mindists[j][i] = dist  # save distance to closes POI
-    return mindists
+	# iterate through all points in lat/lon grid
+	for i in range(len(x)):  # iterate through longitudes
+		for j in range(len(y)):  # iterate through latitudes
+			for k in range(len(POIs)):  # find closest POI in array
+				dist = np.hypot((x[i] - lons[k]), (y[j] - lats[k]))
+				if dist < mindists[j][i]:
+					mindists[j][i] = dist  # save distance to closes POI
+
+	mindists_smooth = smooth_map(mindists, npts)
+	return mindists_smooth
 
 
 def plot_distances_to_POIs(mindists, POIs=[]):
-    """
+	"""
     Plots a 2D heatmap of distance to nearest POI.
 
     :param mindists:
@@ -74,28 +105,28 @@ def plot_distances_to_POIs(mindists, POIs=[]):
      1
     """
 
-    plt.figure(figsize=(5, 5))
-    plt.axis([lonmin, lonmax, latmin, latmax])
-    plt.pcolormesh(x, y, mindists)
-    plt.xlabel('Longitude')
-    plt.ylabel('Latitude')
-    plt.plot(city_limits[:, 1], city_limits[:, 0], color='red')
+	plt.figure(figsize=(5, 5))
+	plt.axis([lonmin, lonmax, latmin, latmax])
+	plt.pcolormesh(x, y, mindists)
+	plt.xlabel('Longitude')
+	plt.ylabel('Latitude')
+	plt.plot(city_limits[:, 1], city_limits[:, 0], color='red')
 
-    if len(POIs) != 0:  # get POI's
-        try:
-            # if coordinates as arrays
-            lons, lats = POIs[:, 1], POIs[:, 0]
-        except TypeError:
-            # if coordinates in pandas dataframe
-            lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
+	if len(POIs) != 0:  # get POI's
+		try:
+			# if coordinates as arrays
+			lons, lats = POIs[:, 1], POIs[:, 0]
+		except TypeError:
+			# if coordinates in pandas dataframe
+			lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
 
-        plt.plot(lons, lats, 'x', color='red')
+		plt.plot(lons, lats, 'x', color='red')
 
-    return x, y, mindists
+	return x, y, mindists
 
 
 def produce_map_for_app(mindists):
-    """
+	"""
     Plots a 2D heatmap of distance to nearest POI.
 
     :param mindists:
@@ -104,11 +135,11 @@ def produce_map_for_app(mindists):
      x, y, mindists
     """
 
-    return x, y, mindists
+	return x, y, mindists
 
 
 def hist2d_bmoredata(POIs, plot=True, masked=True):
-    """
+	"""
     Produces a npts x npts histogram from an array of longitudes and latitudes.
 
     :param POIs:
@@ -122,34 +153,36 @@ def hist2d_bmoredata(POIs, plot=True, masked=True):
     :return:
         npts x npts NumPy array (2D histogram)
     """
-    # get POI's
-    try:
-        # if coordinates as arrays
-        lons, lats = POIs[:, 1], POIs[:, 0]
-    except TypeError:
-        # if coordinates in pandas dataframe
-        lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
+	# get POI's
+	try:
+		# if coordinates as arrays
+		lons, lats = POIs[:, 1], POIs[:, 0]
+	except TypeError:
+		# if coordinates in pandas dataframe
+		lons, lats = POIs['Longitude'].values, POIs['Latitude'].values
 
-    maprange = np.array([(lonmin, lonmax), (latmin, latmax)])
+	maprange = np.array([(lonmin, lonmax), (latmin, latmax)])
 
-    H, _, _ = np.histogram2d(lons, lats, bins=npts, range=maprange)
+	H, _, _ = np.histogram2d(lons, lats, bins=npts, range=maprange)
 
-    # H needs to be rotated and flipped
-    H = np.rot90(H)
-    H = np.flipud(H)
+	# H needs to be rotated and flipped
+	H = np.rot90(H)
+	H = np.flipud(H)
 
-    if plot:
-        # Plot 2D histogram using pcolor
-        fig2 = plt.figure(figsize=(6, 5))
-        plt.pcolormesh(x, y, H)
-        plt.xlabel('Longitude')
-        plt.ylabel('Latitude')
-        cbar = plt.colorbar()
-        cbar.ax.set_ylabel('Counts (arb.)')
+	Hsmooth = smooth_map(H, npts)
 
-    if masked:
-        # Mask zeros
-        Hmasked = np.ma.masked_where(H == 0, H)  # Mask pixels with a value of zero
-        return Hmasked
-    else:
-        return H
+	if plot:
+		# Plot 2D histogram using pcolor
+		fig2 = plt.figure(figsize=(6, 5))
+		plt.pcolormesh(x, y, Hsmooth)
+		plt.xlabel('Longitude')
+		plt.ylabel('Latitude')
+		cbar = plt.colorbar()
+		cbar.ax.set_ylabel('Counts (arb.)')
+
+	if masked:
+		# Mask zeros
+		Hmasked = np.ma.masked_where(Hsmooth == 0, Hsmooth)  # Mask pixels with a value of zero
+		return Hmasked
+	else:
+		return Hsmooth
