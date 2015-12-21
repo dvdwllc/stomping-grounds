@@ -23,3 +23,19 @@ class School(DataPoint):
     lead_last_name = models.CharField(max_length=100, null=True, blank=True)
     grades_served = models.CharField(max_length=200, null=True, blank=True)
 
+
+class Restaurant(DataPoint):
+    name = models.CharField(max_length=200, null=True, blank=True)
+    zip = models.CharField(max_length=50, null=True, blank=True)
+    address = models.CharField(max_length=500, null=True, blank=True)
+
+
+class GroceryStore(DataPoint):
+    name = models.CharField(max_length=200, null=True, blank=True)
+    type = models.CharField(max_length=100, null=True, blank=True)
+    zip = models.CharField(max_length=20, null=True, blank=True)
+    address = models.CharField(max_length=500, null=True, blank=True)
+
+
+class Vacancy(DataPoint):
+    pass
