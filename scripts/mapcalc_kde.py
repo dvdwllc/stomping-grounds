@@ -86,3 +86,15 @@ def kde_map(POIs, plot=True):
         cbar.ax.set_ylabel('Kernel Density (arb.)')
 
     return Z
+
+def produce_map_for_app(mindists):
+	"""
+    Plots a 2D heatmap of distance to nearest POI.
+
+    :param mindists:
+     npts by npts array of distances to nearest POI
+    :return:
+     x, y, mindists
+    """
+
+	return x, y, mindists

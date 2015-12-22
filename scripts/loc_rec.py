@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
-from scripts import mapcalc, get_user_POIs
+import mapcalc_kde, get_user_POIs
 import geocoder
 
 # Initializes database with filename baltimore.db in current directory
@@ -38,12 +38,11 @@ class recommender(object):
 
                 if q[0] == 'arrests':
                     # Compute heatmap (2D histogram)
-                    self.maps.append( \
-                        mapcalc.hist2d_bmoredata(result, 0, 0) + 1.0)
+                    self.maps.append(-mapcalc_kde.kde_map(result, 0))
 
                 else:
                     # Compute heatmap (2D grid of distance to nearest POI)
-                    self.maps.append(mapcalc.compute_distances_to_POIs(result))
+                    self.maps.append(mapcalc_kde.kde_map(result, 0))
 
             else:
                 # If query is database with no unique identifiers
@@ -56,20 +55,17 @@ class recommender(object):
                     result = pd.read_sql_query(formatted_query, disk_engine)
                     if q == 'vacancies':
                         # Compute heatmap (2D histogram)
-                        self.maps.append(mapcalc.hist2d_bmoredata(result, 0, 0) + 1.0)
+                        self.maps.append(-mapcalc_kde.kde_map(result, 0))
                     else:
                         # Compute heatmap (2D grid of distance to nearest POI)
-                        self.maps.append(
-                        mapcalc.compute_distances_to_POIs(result)
-                        )
+                        self.maps.append(mapcalc_kde.kde_map(result, 0))
 
                 # If query is a user-input address
                 else:
                     result = get_user_POIs.add_user_POI(q)
                     try:
                         # Compute heatmap (2D grid of distance to nearest POI)
-                        self.maps.append \
-                            (mapcalc.compute_distances_to_POIs(result))
+                        self.maps.append(100*mapcalc_kde.kde_map(result, 0))
 
                     except TypeError:
                         print 'Failed to geocode manually entered location.'
@@ -77,23 +73,21 @@ class recommender(object):
     def recommend_location(self):
         # compute heatmap
         map_array = np.array(self.maps)
-        heatmap = np.prod((map_array), axis=0)
-        lowest_val = np.amin(heatmap)
+        heatmap = np.sum((map_array), axis=0)
+        highest_val = np.amax(heatmap)
 
         # find hottest spot
-        opt_lat, opt_lon = np.argwhere(heatmap == lowest_val)[0]
+        opt_lat, opt_lon = np.argwhere(heatmap == highest_val)[0]
 
         # determine address from lat/lon of hottest spot
-        address = geocoder.google('%.10f, %.10f' % (
-            mapcalc.y[opt_lat], mapcalc.x[opt_lon]
-        )).address
+        address = geocoder.google('%.10f, %.10f' % (opt_lat, opt_lon)).address
 
         return address
 
     def recommendation_map(self):
         map_array = np.array(self.maps)
         heatmap = np.prod((map_array), axis=0)
-        x, y, heatmap = mapcalc.produce_map_for_app(1.0 / heatmap)
+        x, y, heatmap = mapcalc_kde.produce_map_for_app(heatmap)
 
         return x, y, heatmap
 
@@ -107,5 +101,5 @@ if __name__ == '__main__':
     q3 = 'vacancies'
     my_spot = recommender([Fells, q1, q2, q3])
     my_spot.compute_maps()
-    loc_map = my_spot.recommend_location_map()
+    loc_map = my_spot.recommend_location()
     print 'You should search for a property near %s' % loc_map
