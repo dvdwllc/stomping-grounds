@@ -107,3 +107,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static'),
 )
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyApsolxG5mP99Frp691I0_rp7gOhoBuZZ0'
