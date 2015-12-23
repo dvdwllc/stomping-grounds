@@ -15,17 +15,23 @@
         When you click 'submit,' all of your criteria will be taken into account in order to produce a location recommendation.
     </p>
 
-    <form id='index_locrec' method='POST' action='/' >
-     <p>Address: <input type='text' name='address' size='35'><br><br>
-        <input type="checkbox" name="arrests_data" value="True"> Low level of crime<br>
-        <input type="checkbox" name="vacant_homes_data" value="True"> Low rate of vacant buildings<br>
-        <input type="checkbox" name="grocery_data" value="True"> Access to full supermarkets<br>
-        <input type="checkbox" name="top50_data" value="True"> Access to top 50 restaurants<br>
-    </p>
-     <p>
-        <input type='submit' value='Submit'>
-     </p>
-    </form>
+    <form action="{% url 'loc_rec.views.index' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+
+{#    <form method='POST' action='/' >#}
+{#     <p>Address: <input type='text' name='address' size='35'><br><br>#}
+{#        <input type="checkbox" name="arrests" value="True"> Low level of crime<br>#}
+{#        <input type="checkbox" name="vacancies" value="True"> Low rate of vacant buildings<br>#}
+{#        <input type="checkbox" name="grocery_stores" value="True"> Access to full supermarkets<br>#}
+{#        <input type="checkbox" name="top_50" value="True"> Access to top 50 restaurants<br>#}
+{#    </p>#}
+{#     <p>#}
+{#        <input type='submit' value='Submit'>#}
+{#     </p>#}
+{#    </form>#}
 
   </div>
 </div>

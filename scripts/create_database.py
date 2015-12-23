@@ -7,7 +7,7 @@ restaurants = pd.read_csv('clean_data/restaurant_list_GIS.csv', encoding='Latin-
 groceries = pd.read_csv('clean_data/grocerystore_list_GIS.csv')
 vacancies = pd.read_csv('clean_data/vacancies_GIS.csv')
 
-disk_engine = create_engine('sqlite:///baltimore.db') 
+disk_engine = create_engine('sqlite:///baltimore.db')
 # Initializes database with filename baltimore.db in current directory
 
 arrests.to_sql('arrests', disk_engine)

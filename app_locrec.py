@@ -111,6 +111,8 @@ def img():
     plt.legend(bbox_to_anchor=(0.05, 0.05), loc=3, borderaxespad=0., fancybox=True, framealpha=0.5)
     plt.subplots_adjust(left=0.2, right=0.9, top=0.9, bottom=0.1)
 
+    # Write the image to 'static/recommendation_images/image.png'
+
     plt.savefig('image.png', dpi=300)
 
     return send_file('image.png', mimetype='image/png')
