@@ -65,7 +65,9 @@ class recommender(object):
                     result = get_user_POIs.add_user_POI(q)
                     try:
                         # Compute heatmap (2D grid of distance to nearest POI)
-                        self.maps.append(100*mapcalc_kde.kde_map(result, 0))
+                        self.maps.append(100*mapcalc_kde.kde_map(float(result[:,1]),
+                                                                 float(result[:,0]),
+                                                                 0))
 
                     except TypeError:
                         print 'Failed to geocode manually entered location.'
