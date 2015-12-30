@@ -49,13 +49,13 @@ def gauss_2D(lon_vec, lat_vec, POI_lon, POI_lat, bandwidth):
     gaussian = np.exp(-((X.ravel()-POI_lon)**2 +
                         (Y.ravel()-POI_lat)**2)/(2*bandwidth**2))
 
-    print max(gaussian)
+    #print max(gaussian)
     Z = np.reshape(gaussian, X.shape)
     Z = np.rot90(Z.T)
 
     return Z
 
-def plot_KDE(lons, lats, kernel_density):
+def plot_KDE(lons, lats, kernel_density, mapname):
     plt.figure(figsize=(6, 5))
     plt.imshow(
         kernel_density,
@@ -63,6 +63,7 @@ def plot_KDE(lons, lats, kernel_density):
         extent=[min(lons), max(lons), min(lats), max(lats)]
               )
     plt.axis([min(lons), max(lons), min(lats), max(lats)])
+    plt.title(mapname)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
     cbar = plt.colorbar()
