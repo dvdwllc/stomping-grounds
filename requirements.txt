@@ -7,4 +7,3 @@ SQLAlchemy==0.9.9
 virtualenv==13.0.3
 gunicorn==19.3.0
 Django==1.9
-

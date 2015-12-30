@@ -59,7 +59,9 @@ class recommender(object):
                         self.maps.append(mapcalc.hist2d_bmoredata(result, 0, 0) + 1.0)
                     else:
                         # Compute heatmap (2D grid of distance to nearest POI)
-                        self.maps.append(mapcalc.compute_distances_to_POIs(result))
+                        self.maps.append(
+                        mapcalc.compute_distances_to_POIs(result)
+                        )
 
                 # If query is a user-input address
                 else:
