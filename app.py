@@ -77,10 +77,10 @@ def index():
         rec_map = map_df.sum(axis=1).values
 
         to_gmap = mapcalc_kde.produce_google_heatmap_points(rec_map, npts, grid_points, map_threshhold)
-        print 'Value of Crime: '+str(float(session['crime']))
-        print 'Value of vac: '+str(float(session['vacancy']))
-        print 'Value of groc: '+str(float(session['grocery']))
-        print 'Value of school: '+str(float(session['schools']))
+        #print 'Value of Crime: '+str(float(session['crime']))
+        #print 'Value of vac: '+str(float(session['vacancy']))
+        #print 'Value of groc: '+str(float(session['grocery']))
+        #print 'Value of school: '+str(float(session['schools']))
 
         return render_template(
             'index.html',
