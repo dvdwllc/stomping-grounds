@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>Stomping Grounds</title>
+		<meta name="description" content="Worthy a Bootstrap-based, Responsive HTML5 Template">
+		<meta name="author" content="htmlcoder.me">
+
+		<!-- Mobile Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="images/favicon.ico">
+
+		<!-- Web Fonts -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Raleway:700,400,300' rel='stylesheet' type='text/css'>
+
+		<!-- Bootstrap core CSS -->
+		<link href="../static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+		<!-- Font Awesome CSS -->
+		<link href="../static/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+		<!-- Plugins -->
+		<link href="../static/css/animations.css" rel="stylesheet">
+
+		<!-- Worthy core CSS file -->
+		<link href="../static/css/style.css" rel="stylesheet">
+
+		<!-- Custom css --> 
+		<link href="../static/css/custom.css" rel="stylesheet">
+		<style type="text/css">
+        #map { height: 360px; width: 100%}
+        #floating-panel {
+  							position: absolute;
+  							top: 10px;
+  							left: 25%;
+  							z-index: 5;
+  							background-color: #fff;
+  							padding: 5px;
+  							border: 1px solid #999;
+  							text-align: center;
+  							font-family: 'Helvetica','sans-serif';
+  							line-height: 20px;
+  							padding-left: 10px;
+						}
+
+      					#floating-panel {
+        					background-color: #fff;
+        					border: 0px solid #999;
+        					left: 25%;
+        					padding: 5px;
+        					position: absolute;
+        					top: 10px;
+        					z-index: 5;
+      					}
+    </style>
+	</head>
+
+	<body class="no-trans">
+		<!-- scrollToTop -->
+		<!-- ================ -->
+		<div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+		<!-- header start -->
+		<!-- ================ --> 
+		<header class="header fixed clearfix navbar navbar-fixed-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+
+						<!-- header-left start -->
+						<!-- ================ -->
+						<div class="header-left clearfix">
+
+							<!-- logo -->
+							<div class="logo smooth-scroll">
+								<!--<a href="#banner"><img id="logo" src="images/logo.png" alt="Worthy"></a> -->
+							</div>
+
+							<!-- name-and-slogan -->
+							<div class="site-name-and-slogan smooth-scroll">
+								<div class="site-name"><a href="#banner">Stomping Grounds</a></div>
+								<div class="site-slogan">Combine geospatial datasets to find the perfect location for your new home or business.</div>
+							</div>
+
+						</div>
+						<!-- header-left end -->
+
+					</div>
+					<div class="col-md-8">
+
+						<!-- header-right start -->
+						<!-- ================ -->
+						<div class="header-right clearfix">
+
+							<!-- main-navigation start -->
+							<!-- ================ -->
+							<div class="main-navigation animated">
+
+								<!-- navbar start -->
+								<!-- ================ -->
+								<nav class="navbar navbar-default" role="navigation">
+									<div class="container-fluid">
+
+										<!-- Toggle get grouped for better mobile display -->
+										<div class="navbar-header">
+											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+												<span class="sr-only">Toggle navigation</span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+											</button>
+										</div>
+
+										<!-- Collect the nav links, forms, and other content for toggling -->
+										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
+											<ul class="nav navbar-nav navbar-right">
+												<li class="active"><a href="#banner">Home</a></li>
+												<li><a href="#about">Learn More</a></li>
+											</ul>
+										</div>
+
+									</div>
+								</nav>
+								<!-- navbar end -->
+
+							</div>
+							<!-- main-navigation end -->
+
+						</div>
+						<!-- header-right end -->
+
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- header end -->
+
+		<!-- banner start -->
+		<!-- ================ -->
+		<div id="banner" class="banner">
+			<div class="banner-image">
+				<img src="static/Bmore_crop.jpg">
+			</div>
+			<div class="banner-caption">
+				<div class="container">
+					<div class="row">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 object-non-visible" data-animation-effect="fadeIn">
+						<h2 class="text-center">View the raw data...</h2>
+							<p class="lead text-left">
+							Toggle the visibility of individual datasets using the "visible layers" tab on the map.
+							</p>
+					</div>
+					<div class="col-md-8 object-non-visible" data-animation-effect="fadeIn">
+							<iframe width="100%" height="360" frameborder="0" src="https://dvdwllc.cartodb.com/viz/5199023e-b948-11e5-9060-0e31c9be1b51/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4" data-animation-effect="fadeIn">
+						<h2 class="text-center">Compute a recommendation map...</h2>
+						<p class="lead text-left">
+						Choose which datasets you want to include, and rate how important they are to you.
+						</p>
+						<p class="lead text-right" align="right">
+                            <form id='index' method='POST' action='/' >
+                                Crime:
+                                <input type="radio" name="crime" value="-2"> -2
+                                <input type="radio" name="crime" value="-1"> -1
+                                <input type="radio" name="crime" value="0" checked> 0
+                                <input type="radio" name="crime" value="1"> +1
+                                <input type="radio" name="crime" value="2"> +2<br>
+                                Vacant Properties:
+                                <input type="radio" name="vacancy" value="-2"> -2
+                                <input type="radio" name="vacancy" value="-1" checked> -1
+                                <input type="radio" name="vacancy" value="0"> 0
+                                <input type="radio" name="vacancy" value="1"> +1
+                                <input type="radio" name="vacancy" value="2"> +2<br>
+                                Grocery Stores:
+                                <input type="radio" name="grocery" value="-2"> -2
+                                <input type="radio" name="grocery" value="-1"> -1
+                                <input type="radio" name="grocery" value="0"> 0
+                                <input type="radio" name="grocery" value="1" checked> +1
+                                <input type="radio" name="grocery" value="2"> +2<br>
+                                Restaurants:
+                                <input type="radio" name="restaurant" value="-2"> -2
+                                <input type="radio" name="restaurant" value="-1"> -1
+                                <input type="radio" name="restaurant" value="0" checked> 0
+                                <input type="radio" name="restaurant" value="1"> +1
+                                <input type="radio" name="restaurant" value="2"> +2<br>
+                                Schools (K-12):
+                                <input type="radio" name="schools" value="-2"> -2
+                                <input type="radio" name="schools" value="-1"> -1
+                                <input type="radio" name="schools" value="0"> -
+                                <input type="radio" name="schools" value="1" checked> +1
+                                <input type="radio" name="schools" value="2"> +2<br>
+     
+        					    <input type='submit' value='submit'>
+                            </form>
+     					</p>
+					</div>
+					<div class="col-md-8" data-animation-effect="fadeIn">
+    					<div id="map"></div>
+    						<script type="text/javascript">
+								var map, heatmap;
+
+								function initMap() {
+									map = new google.maps.Map(document.getElementById('map'), {
+											center: {lat: 39.294631, lng: -76.613419},
+											zoom: 11
+											});
+
+									heatmap = new google.maps.visualization.HeatmapLayer({
+												data: getPoints(),
+												map: map,
+												radius: 20
+												});
+								}
+
+								// Heatmap data: 500 Points
+								function getPoints() {
+								    return [{{ to_gmap|join(', ') }}]
+								    }
+							</script>
+							<script async defer 
+							src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpgGfbV2Ogvfk8Y2z3pfa4d9FA4f5tFsU&libraries=visualization&callback=initMap">
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
+		<!-- footer start -->
+		<!-- ================ -->
+		<footer id="footer">
+
+			<!-- .footer start -->
+			<!-- ================ -->
+			<div class="footer section">
+				<div class="container">
+					<h1 class="title text-center" id="contact">Contact Information</h1>
+					<div class="space"></div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="footer-content">
+								<ul class="list-icons">
+									<li><i class="fa fa-envelope-o pr-10"></i>david.c.wallace@mg.thedataincubator.com</li>
+								</ul>
+								<ul class="social-links">
+									<li class="linkedin"><a target="_blank" href="http://www.linkedin.com/in/davidcwallace"><i class="fa fa-linkedin"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- .footer end -->
+		</footer>
+		<!-- footer end -->
+
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="../static/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="../static/plugins/modernizr.js"></script>
+
+		<!-- Isotope javascript -->
+		<script type="text/javascript" src="../static/plugins/isotope/isotope.pkgd.min.js"></script>
+		
+		<!-- Backstretch javascript -->
+		<script type="text/javascript" src="../static/plugins/jquery.backstretch.min.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="../static/plugins/jquery.appear.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="../static/js/template.js"></script>
+
+		<!-- Custom Scripts -->
+		<script type="text/javascript" src="../static/js/custom.js"></script>
+
+	</body>
+</html>

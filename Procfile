@@ -1,2 +1,2 @@
-web: gunicorn app_locrec:app_locrec
+web: gunicorn app:app
 
