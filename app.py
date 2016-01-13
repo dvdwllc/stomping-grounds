@@ -3,14 +3,12 @@ from scripts import mapcalc_kde
 import pandas as pd
 import numpy as np
 import dill
-from nocache import nocache
 
 app = Flask(__name__)
 # if you're reading this, don't look at the next line. It's SECRET ;)
 app.config['SECRET_KEY'] = 'F#$6432fdsY$WTREWgfdassu54agfdsjyt;.,;gfd'
 
 @app.route('/', methods=['GET', 'POST'])
-@nocache
 def index():
     if request.method == 'GET':
         to_gmap=['new google.maps.LatLng(39.302051282051281, -76.617435897435897)',
