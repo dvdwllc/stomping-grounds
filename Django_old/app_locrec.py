@@ -8,6 +8,21 @@ app_locrec = Flask(__name__)
 # if you're reading this, don't look at the next line. It's SECRET ;)
 app_locrec.config['SECRET_KEY'] = 'F#$6432fdsY$WTREWgfdassu54agfdsjyt;.,;gfd'
 
+
+# Boundary conditions for all maps (longitudes as x vals, latitudes as y vals)
+lonmin = -76.72
+lonmax = -76.52
+latmin = 39.19
+latmax = 39.38
+
+# number of points along each map edge
+# (total number of points is npts**2)
+npts = 70
+
+x = np.linspace(lonmin, lonmax, npts)
+y = np.linspace(latmin, latmax, npts)
+
+
 @app_locrec.route('/', methods=['GET', 'POST'])
 @nocache
 def index_locrec():

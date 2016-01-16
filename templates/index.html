@@ -175,41 +175,31 @@
 					<div class="col-md-4" data-animation-effect="fadeIn">
 						<h2 class="text-center">Compute a recommendation map...</h2>
 						<p class="lead text-left">
-						Choose which datasets you want to include, and rate how important they are to you.
+						    Rate each dataset as either negative (-), neutral (0) or positive (+), then click 'submit' to view the heatmap!
 						</p>
 						<p class="lead text-right" align="right">
                             <form id='index' method='POST' action='/' >
-                                Crime:
-                                <input type="radio" name="crime" value="-2"> -2
-                                <input type="radio" name="crime" value="-1"> -1
-                                <input type="radio" name="crime" value="0" checked> 0
-                                <input type="radio" name="crime" value="1"> +1
-                                <input type="radio" name="crime" value="2"> +2<br>
-                                Vacant Properties:
-                                <input type="radio" name="vacancy" value="-2"> -2
-                                <input type="radio" name="vacancy" value="-1" checked> -1
-                                <input type="radio" name="vacancy" value="0"> 0
-                                <input type="radio" name="vacancy" value="1"> +1
-                                <input type="radio" name="vacancy" value="2"> +2<br>
-                                Grocery Stores:
-                                <input type="radio" name="grocery" value="-2"> -2
-                                <input type="radio" name="grocery" value="-1"> -1
-                                <input type="radio" name="grocery" value="0"> 0
-                                <input type="radio" name="grocery" value="1" checked> +1
-                                <input type="radio" name="grocery" value="2"> +2<br>
-                                Restaurants:
-                                <input type="radio" name="restaurant" value="-2"> -2
-                                <input type="radio" name="restaurant" value="-1"> -1
-                                <input type="radio" name="restaurant" value="0" checked> 0
-                                <input type="radio" name="restaurant" value="1"> +1
-                                <input type="radio" name="restaurant" value="2"> +2<br>
-                                Schools (K-12):
-                                <input type="radio" name="schools" value="-2"> -2
-                                <input type="radio" name="schools" value="-1"> -1
-                                <input type="radio" name="schools" value="0"> -
-                                <input type="radio" name="schools" value="1" checked> +1
-                                <input type="radio" name="schools" value="2"> +2<br>
-     
+                                &nbsp;-&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;+<br>
+                                <input type="radio" name="crime" value="-1"checked>&nbsp;
+                                <input type="radio" name="crime" value="0">&nbsp;
+                                <input type="radio" name="crime" value="1">&nbsp; Crime<br>
+
+                                <input type="radio" name="vacancy" value="-1" checked>&nbsp;
+                                <input type="radio" name="vacancy" value="0">&nbsp;
+                                <input type="radio" name="vacancy" value="1">&nbsp; Vacant Properties<br>
+
+                                <input type="radio" name="grocery" value="-1">&nbsp;
+                                <input type="radio" name="grocery" value="0">&nbsp;
+                                <input type="radio" name="grocery" value="1" checked>&nbsp; Grocery Stores<br>
+
+                                <input type="radio" name="restaurant" value="-1">&nbsp;
+                                <input type="radio" name="restaurant" value="0" checked>&nbsp;
+                                <input type="radio" name="restaurant" value="1"> &nbsp;Restaurants<br>
+
+                                <input type="radio" name="schools" value="-1">&nbsp;
+                                <input type="radio" name="schools" value="0">&nbsp;
+                                <input type="radio" name="schools" value="1" checked>&nbsp; Schools (K-12)<br>
+                                <br>
         					    <input type='submit' value='submit'>
                             </form>
      					</p>
@@ -259,10 +249,11 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="footer-content">
-								<ul class="list-icons">
-									<li><i class="fa fa-envelope-o pr-10"></i>david.c.wallace@mg.thedataincubator.com</li>
+                                <ul class="list-icons">
+									<li><i class="fa fa-envelope-o pr-10"></i> <a href="mailto:david.c.wallace@mg.thedataincubator.com">david.c.wallace@mg.thedataincubator.com</a></li>
 								</ul>
 								<ul class="social-links">
+                                    <li class="github"><a target="_blank" href="http://github.com/dvdwllc"><i class="fa fa-github"></i></a></li>
 									<li class="linkedin"><a target="_blank" href="http://www.linkedin.com/in/davidcwallace"><i class="fa fa-linkedin"></i></a></li>
 								</ul>
 							</div>
@@ -273,7 +264,15 @@
 			<!-- .footer end -->
 		</footer>
 		<!-- footer end -->
-
+        <div class="subfooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center"><a target="_blank" href="http://davidcwallace.com">Personal Website</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 		<!-- JavaScript files placed at the end of the document so the pages load faster
 		================================================== -->
 		<!-- Jquery and Bootstap core js files -->

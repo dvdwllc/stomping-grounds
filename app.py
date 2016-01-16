@@ -26,18 +26,18 @@ def index():
         )
     else:
         session=dict()
-        session['crime'] = request.form['crime']
-        session['vacancy'] = request.form['vacancy']
-        session['grocery'] = request.form['grocery']
-        session['restaurant'] = request.form['restaurant']
-        session['schools'] = request.form['schools']
+        session['crime'] = float(request.form['crime'])
+        session['vacancy'] = float(request.form['vacancy'])
+        session['grocery'] = float(request.form['grocery'])
+        session['restaurant'] = float(request.form['restaurant'])
+        session['schools'] = float(request.form['schools'])
 
         # load pre-computed kernel density functions
-        crime = dill.load(open('crime.dill', 'r'))
-        vacancy = dill.load(open('vacancy.dill', 'r'))
-        grocery = dill.load(open('grocery.dill', 'r'))
-        restaurant = dill.load(open('restaurant.dill', 'r'))
-        schools = dill.load(open('schools.dill', 'r'))
+        crime = dill.load(open('dills/crime.dill', 'r'))
+        vacancy = dill.load(open('dills/vacancy.dill', 'r'))
+        grocery = dill.load(open('dills/grocery.dill', 'r'))
+        restaurant = dill.load(open('dills/restaurant.dill', 'r'))
+        schools = dill.load(open('dills/schools.dill', 'r'))
 
         """This needs to be defined by the google maps api"""
 
@@ -49,8 +49,8 @@ def index():
 
         # number of points along each map edge
         # (total number of points is npts**2)
-        npts = 40
-        map_threshhold = 0.8
+        npts = 50
+        map_threshhold = 0.7
 
         x = np.linspace(lonmin, lonmax, npts)
         y = np.linspace(latmin, latmax, npts)
@@ -58,11 +58,25 @@ def index():
         X, Y = np.meshgrid(x, y, indexing='ij')
         grid_points = np.vstack([X.ravel(), Y.ravel()])
 
-        crime_map = mapcalc_kde.kde_map(x, y, crime) * float(session['crime'])
-        vacancy_map = mapcalc_kde.kde_map(x, y, vacancy) * float(session['vacancy'])
-        grocery_map = mapcalc_kde.kde_map(x, y, grocery) * float(session['grocery'])
-        restaurant_map = mapcalc_kde.kde_map(x, y, restaurant) * float(session['restaurant'])
-        schools_map = mapcalc_kde.kde_map(x, y, schools) * float(session['schools'])
+        crime_map = mapcalc_kde.kde_map(
+            x, y, crime
+        ) * session['crime']
+
+        vacancy_map = mapcalc_kde.kde_map(
+            x, y, vacancy
+        ) * session['vacancy']
+
+        grocery_map = mapcalc_kde.kde_map(
+            x, y, grocery
+        ) * session['grocery']
+
+        restaurant_map = mapcalc_kde.kde_map(
+            x, y, restaurant
+        ) * session['restaurant']
+
+        schools_map = mapcalc_kde.kde_map(
+            x, y, schools
+        ) * session['schools']
 
         map_df = pd.DataFrame({
                 'crime':crime_map,
@@ -75,10 +89,6 @@ def index():
         rec_map = map_df.sum(axis=1).values
 
         to_gmap = mapcalc_kde.produce_google_heatmap_points(rec_map, npts, grid_points, map_threshhold)
-        #print 'Value of Crime: '+str(float(session['crime']))
-        #print 'Value of vac: '+str(float(session['vacancy']))
-        #print 'Value of groc: '+str(float(session['grocery']))
-        #print 'Value of school: '+str(float(session['schools']))
 
         return render_template(
             'index.html',
@@ -86,4 +96,4 @@ def index():
         )
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
