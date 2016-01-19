@@ -6,8 +6,6 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Stomping Grounds</title>
-		<meta name="description" content="Worthy a Bootstrap-based, Responsive HTML5 Template">
-		<meta name="author" content="htmlcoder.me">
 
 		<!-- Mobile Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +56,7 @@
         					top: 10px;
         					z-index: 5;
       					}
-    </style>
+        </style>
 	</head>
 
 	<body class="no-trans">
@@ -71,7 +69,7 @@
 		<header class="header fixed clearfix navbar navbar-fixed-top">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-6">
 
 						<!-- header-left start -->
 						<!-- ================ -->
@@ -92,7 +90,7 @@
 						<!-- header-left end -->
 
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-6">
 
 						<!-- header-right start -->
 						<!-- ================ -->
@@ -212,7 +210,8 @@
 								function initMap() {
 									map = new google.maps.Map(document.getElementById('map'), {
 											center: {lat: 39.294631, lng: -76.613419},
-											zoom: 11
+											zoom: 11,
+											scrollwheel: false
 											});
 
 									heatmap = new google.maps.visualization.HeatmapLayer({

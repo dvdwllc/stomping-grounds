@@ -32,14 +32,14 @@ def index():
         session['restaurant'] = float(request.form['restaurant'])
         session['schools'] = float(request.form['schools'])
 
-        # load pre-computed kernel density functions
-        crime = dill.load(open('dills/crime.dill', 'r'))
-        vacancy = dill.load(open('dills/vacancy.dill', 'r'))
-        grocery = dill.load(open('dills/grocery.dill', 'r'))
-        restaurant = dill.load(open('dills/restaurant.dill', 'r'))
-        schools = dill.load(open('dills/schools.dill', 'r'))
+        multipliers = np.array([
+            session['crime'],
+            session['vacancy'],
+            session['grocery'],
+            session['restaurant'],
+            session['schools']
+        ])
 
-        """This needs to be defined by the google maps api"""
 
         # Boundary conditions for all maps (longitudes as x vals, latitudes as y vals)
         lonmin = -76.72
@@ -49,8 +49,7 @@ def index():
 
         # number of points along each map edge
         # (total number of points is npts**2)
-        npts = 50
-        map_threshhold = 0.7
+        npts = 100
 
         x = np.linspace(lonmin, lonmax, npts)
         y = np.linspace(latmin, latmax, npts)
@@ -58,37 +57,15 @@ def index():
         X, Y = np.meshgrid(x, y, indexing='ij')
         grid_points = np.vstack([X.ravel(), Y.ravel()])
 
-        crime_map = mapcalc_kde.kde_map(
-            x, y, crime
-        ) * session['crime']
-
-        vacancy_map = mapcalc_kde.kde_map(
-            x, y, vacancy
-        ) * session['vacancy']
-
-        grocery_map = mapcalc_kde.kde_map(
-            x, y, grocery
-        ) * session['grocery']
-
-        restaurant_map = mapcalc_kde.kde_map(
-            x, y, restaurant
-        ) * session['restaurant']
-
-        schools_map = mapcalc_kde.kde_map(
-            x, y, schools
-        ) * session['schools']
-
-        map_df = pd.DataFrame({
-                'crime':crime_map,
-                'vacancy':vacancy_map,
-                'grocery':grocery_map,
-                'restaurant':restaurant_map,
-                'schools':schools_map
-            })
+        map_df = dill.load(open('dills/map_df.dill'))
+        map_df = map_df*multipliers
+        print map_df.head()
 
         rec_map = map_df.sum(axis=1).values
+        print 'rec_map_vals:', rec_map[:10]
 
-        to_gmap = mapcalc_kde.produce_google_heatmap_points(rec_map, npts, grid_points, map_threshhold)
+        MAP_THRESHHOLD = 0.8
+        to_gmap = mapcalc_kde.produce_google_heatmap_points(rec_map, npts, grid_points, MAP_THRESHHOLD)
 
         return render_template(
             'index.html',
