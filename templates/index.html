@@ -118,8 +118,10 @@
 										<!-- Collect the nav links, forms, and other content for toggling -->
 										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
 											<ul class="nav navbar-nav navbar-right">
-												<li class="active"><a href="#banner">Home</a></li>
+												<!--
+                                                <li class="active"><a href="#banner">Home</a></li>
 												<li><a href="#about">Learn More</a></li>
+												-->
 											</ul>
 										</div>
 
@@ -144,13 +146,13 @@
 		<div id="banner" class="banner">
 			<div class="banner-image">
 				<img src="static/Bmore_crop.jpg">
-			</div>
+			</div><!--
 			<div class="banner-caption">
 				<div class="container">
 					<div class="row">
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</div>
 		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
 			<div class="container">
@@ -178,25 +180,41 @@
 						<p class="lead text-right" align="right">
                             <form id='index' method='POST' action='/' >
                                 &nbsp;-&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;+<br>
-                                <input type="radio" name="crime" value="-1"checked>&nbsp;
-                                <input type="radio" name="crime" value="0">&nbsp;
+                                <input type="radio" name="crime" value="-1">&nbsp;
+                                <input type="radio" name="crime" value="0" checked>&nbsp;
                                 <input type="radio" name="crime" value="1">&nbsp; Crime<br>
 
-                                <input type="radio" name="vacancy" value="-1" checked>&nbsp;
-                                <input type="radio" name="vacancy" value="0">&nbsp;
+                                <input type="radio" name="vacancy" value="-1">&nbsp;
+                                <input type="radio" name="vacancy" value="0" checked>&nbsp;
                                 <input type="radio" name="vacancy" value="1">&nbsp; Vacant Properties<br>
 
                                 <input type="radio" name="grocery" value="-1">&nbsp;
-                                <input type="radio" name="grocery" value="0">&nbsp;
-                                <input type="radio" name="grocery" value="1" checked>&nbsp; Grocery Stores<br>
+                                <input type="radio" name="grocery" value="0" checked>&nbsp;
+                                <input type="radio" name="grocery" value="1">&nbsp; Grocery Stores<br>
 
                                 <input type="radio" name="restaurant" value="-1">&nbsp;
                                 <input type="radio" name="restaurant" value="0" checked>&nbsp;
                                 <input type="radio" name="restaurant" value="1"> &nbsp;Restaurants<br>
 
                                 <input type="radio" name="schools" value="-1">&nbsp;
-                                <input type="radio" name="schools" value="0">&nbsp;
-                                <input type="radio" name="schools" value="1" checked>&nbsp; Schools (K-12)<br>
+                                <input type="radio" name="schools" value="0" checked>&nbsp;
+                                <input type="radio" name="schools" value="1">&nbsp; Schools (K-12)<br>
+
+                                <input type="radio" name="museums" value="-1">&nbsp;
+                                <input type="radio" name="museums" value="0" checked>&nbsp;
+                                <input type="radio" name="museums" value="1">&nbsp; Museums<br>
+
+                                <input type="radio" name="parks" value="-1">&nbsp;
+                                <input type="radio" name="parks" value="0" checked>&nbsp;
+                                <input type="radio" name="parks" value="1">&nbsp; Public Parks<br>
+
+                                <input type="radio" name="liquor" value="-1">&nbsp;
+                                <input type="radio" name="liquor" value="0" checked>&nbsp;
+                                <input type="radio" name="liquor" value="1">&nbsp; Bars and Liquor Sales<br>
+
+                                <input type="radio" name="libraries" value="-1">&nbsp;
+                                <input type="radio" name="libraries" value="0" checked>&nbsp;
+                                <input type="radio" name="libraries" value="1">&nbsp; Public Libraries<br>
                                 <br>
         					    <input type='submit' value='submit'>
                             </form>
