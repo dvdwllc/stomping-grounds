@@ -42,7 +42,7 @@ def kde_map(lon_vec, lat_vec, kernel):
 
     Z = kernel(gridpoints)
 
-    return Z / max(Z)
+    return Z / np.std(Z)
 
 
 def gauss_2D(lon_vec, lat_vec, POI_lon, POI_lat, bandwidth):
@@ -65,12 +65,25 @@ def gauss_2D(lon_vec, lat_vec, POI_lon, POI_lat, bandwidth):
 
 
 def plot_KDE(lons, lats, kernel_density, mapname):
-    plt.figure(figsize=(6, 5))
+    """
+    Plot a heatmap map of estimated kernel density.
+    
+    kernel_density is an npts**2 array and needs to be reshaped according
+    to the provided lon, lat coordinates.
+    """
+    # transform the kernel to the correct dimensions and orientation
+    transformed_kernel = np.rot90(np.reshape(kernel_density, (len(lons), len(lats))).T)
+    
+    # show the computed kernel density as an image
+    # extent sets the boundaries of the image
+    plt.figure(figsize=(10,8))
     plt.imshow(
-        np.rot90(np.reshape(kernel_density, (len(lons), len(lats))).T),
-        cmap=plt.cm.gist_earth_r,
+        transformed_kernel,
+        cmap=plt.cm.RdBu,
         extent=[min(lons), max(lons), min(lats), max(lats)]
     )
+    
+    # set plot details
     plt.axis([min(lons), max(lons), min(lats), max(lats)])
     plt.title(mapname)
     plt.xlabel('Longitude')
@@ -79,6 +92,13 @@ def plot_KDE(lons, lats, kernel_density, mapname):
     cbar.ax.set_ylabel('Kernel Density (arb.)')
 
 def produce_google_heatmap_points(rec_map, npts, gridpoints, match_tolerance):
+    """
+    Add docstring.
+    
+    Fix threshold function.
+    
+    Add ability to reduce number of points dynamically (if recommended area is large)
+    """
     mapmax = np.max(rec_map)
     top_spots = np.argwhere(np.reshape(rec_map, (npts, npts)).T.flatten() > mapmax * match_tolerance)
     best_lat_lng = zip([gridpoints.T[i,1][0] for i in top_spots], [gridpoints.T[i,0][0] for i in top_spots])

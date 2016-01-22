@@ -8,6 +8,5 @@ include/
 man/
 pip-selfcheck.json
 db.sqlite3
-*.ipynb
 .DS_store
 crap

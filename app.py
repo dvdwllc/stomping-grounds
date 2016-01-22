@@ -52,7 +52,7 @@ def index():
         ])
 
         # load the dilled heatmaps
-        map_df = dill.load(open('dills/map_df_fixedBW.dill'))
+        map_df = dill.load(open('dills/map_df_dynamicBW.dill'))
         map_df = map_df*multipliers
         # print map_df.head()
 
