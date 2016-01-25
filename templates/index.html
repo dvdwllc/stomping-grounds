@@ -156,9 +156,13 @@
 		</div>
 		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
 			<div class="container">
+                <div class="row centered">
+                    <div class="col-md-12" data-animation-effect="fadein">
+                        <h2 class="text-center">View the raw data...</h2>
+                    </div>
+                </div>
 				<div class="row">
 					<div class="col-md-4 object-non-visible" data-animation-effect="fadeIn">
-						<h2 class="text-center">View the raw data...</h2>
 							<p class="lead text-left">
 							Toggle the visibility of individual datasets using the "visible layers" tab on the map.
 							</p>
@@ -171,14 +175,19 @@
 		</div>
 		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
 			<div class="container">
+                <div class="row centered">
+                    <div id="recommendation"></div>
+                    <div class="col-md-12" data-animation-effect="fadein">
+                        <h2 class="text-center">Compute a recommendation map...</h2>
+                    </div>
+                </div>
 				<div class="row">
 					<div class="col-md-4" data-animation-effect="fadeIn">
-						<h2 class="text-center">Compute a recommendation map...</h2>
 						<p class="lead text-left">
 						    Rate each dataset as either negative (-), neutral (0) or positive (+), then click 'submit' to view the heatmap!
 						</p>
 						<p class="lead text-right" align="right">
-                            <form id='index' method='POST' action='/' >
+                            <form id='index' method='POST' action='/#recommendation' >
                                 &nbsp;-&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;+<br>
                                 <input type="radio" name="crime" value="-1">&nbsp;
                                 <input type="radio" name="crime" value="0" checked>&nbsp;
