@@ -2,7 +2,7 @@
 #import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import gaussian_kde
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 def compute_kde(POIlons, POIlats, bandwidth):
