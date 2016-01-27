@@ -2,6 +2,7 @@
 #import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import gaussian_kde
+import matplotlib.pyplot as plt
 
 
 def compute_kde(POIlons, POIlats, bandwidth):
@@ -76,7 +77,7 @@ def plot_KDE(lons, lats, kernel_density, mapname):
     
     # show the computed kernel density as an image
     # extent sets the boundaries of the image
-    plt.figure(figsize=(10,8))
+    plt.figure(figsize=(5,4.5))
     plt.imshow(
         transformed_kernel,
         cmap=plt.cm.RdBu,

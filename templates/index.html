@@ -65,8 +65,8 @@
 		<div class="scrollToTop"><i class="icon-up-open-big"></i></div>
 
 		<!-- header start -->
-		<!-- ================ --> 
-		<header class="header fixed clearfix navbar navbar-fixed-top">
+		<!-- ================ -->
+		<header class="header fixed navbar navbar-fixed-top">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6">
@@ -79,7 +79,6 @@
 							<div class="logo smooth-scroll">
 								<!--<a href="#banner"><img id="logo" src="images/logo.png" alt="Worthy"></a> -->
 							</div>
-
 							<!-- name-and-slogan -->
 							<div class="site-name-and-slogan smooth-scroll">
 								<div class="site-name"><a href="#banner">Stomping Grounds</a></div>
@@ -90,57 +89,26 @@
 						<!-- header-left end -->
 
 					</div>
-					
 				</div>
 			</div>
 		</header>
-		<!-- header end -->
-
-		<!-- banner start -->
+        <!-- banner start -->
 		<!-- ================ -->
-		<div id="banner" class="banner">
-			<div class="banner-image">
-				<img src="static/Bmore_crop.jpg">
-			</div><!--
-			<div class="banner-caption">
-				<div class="container">
-					<div class="row">
-					</div>
-				</div>
-			</div>-->
-		</div>
-		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
-			<div class="container">
-                <div class="row centered">
-                    <div class="col-md-12" data-animation-effect="fadein">
-                        <h2 class="text-center">View the raw data...</h2>
-                    </div>
-                </div>
-				<div class="row">
-					<div class="col-md-4 object-non-visible" data-animation-effect="fadeIn">
-							<p class="lead text-left">
-							Toggle the visibility of individual datasets using the "visible layers" tab on the map.
-							</p>
-					</div>
-					<div class="col-md-8 object-non-visible" data-animation-effect="fadeIn">
-							<iframe width="100%" height="360" frameborder="0" src="https://dvdwllc.cartodb.com/viz/5199023e-b948-11e5-9060-0e31c9be1b51/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+		<!-- header end -->
+        <!--recommendation section start-->
+        <div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
 			<div class="container">
                 <div class="row centered">
                     <div id="recommendation"></div>
                     <div class="col-md-12" data-animation-effect="fadein">
-                        <h2 class="text-center">Compute a recommendation map...</h2>
+                        <h1 class="text-center">Find your new Stomping Grounds in Baltimore City</h1>
+                        <p class="lead text-left">
+						    Rate each factor according to your own preference (negative (-), neutral (0) or positive (+)), then click 'submit' to view your recommendation!
+						</p>
                     </div>
                 </div>
 				<div class="row">
 					<div class="col-md-4" data-animation-effect="fadeIn">
-						<p class="lead text-left">
-						    Rate each dataset as either negative (-), neutral (0) or positive (+), then click 'submit' to view the heatmap!
-						</p>
 						<p class="lead text-right" align="right">
                             <form id='index' method='POST' action='/#recommendation' >
                                 &nbsp;-&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;+<br>
@@ -208,13 +176,67 @@
 								    return [{{ to_gmap|join(', ') }}]
 								    }
 							</script>
-							<script async defer 
+							<script async defer
 							src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpgGfbV2Ogvfk8Y2z3pfa4d9FA4f5tFsU&libraries=visualization&callback=initMap">
 							</script>
 						</div>
 					</div>
 				</div>
 			</div>
+        <div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+			<div class="container">
+                <div class="row-md-12"><h1 align="center">How it works</h1></div>
+                <div class="row">
+                    <div class="col-md-4 centered" data-animation-effect="fadeIn">
+                        <br>
+							<iframe width="100%" height="360" frameborder="0" src="https://dvdwllc.cartodb.com/viz/5199023e-b948-11e5-9060-0e31c9be1b51/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+                    </div>
+                    <div class="col-md-8">
+                        <h2 class="text text-left" align="left">Visualizing geospatial data... the old way.</h2>
+                        <p class="lead text-left" align="left">
+                            Of course, each of the datasets above can be plotted on a map without any manipulation. However, when multiple datasets are combined, the resulting map can be very difficult to interpret. For example, there are hundreds of restaurants in Baltimore, but only a handful of full grocery stores. If we plot these datasets on the same map, the restaurants significantly overwhelm the grocery stores, even if we play with the sizes and colors of the points. Add a huge dataset, like all of the arrests that occurred in 2015, and the map doesn't make much sense at all.
+                            <br>You can see this effect by toggling the visible datasets in the map to the left (above, on mobile).
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 centered" data-animation-effect="fadeIn">
+                        <br>
+                        <img src="static/KDE.png" width="100%">
+                    </div>
+                    <div class="col-md-8">
+                        <h2 class="text text-left" align="left">Kernel density estimation to the rescue!</h2>
+                        <p class="lead text-left" align="left">
+                            Rather than plotting every single point, we can represent a dataset by estimating its density at each point in the map.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4" centered data-animation-effect="fadeIn">
+                        <br>
+                        <img src="static/all_maps_crop.png" width="100%">
+                    </div>
+                    <div class="col-md-8">
+                        <h2 class="text text-left" align="left">Combine weighted maps based on user preference</h2>
+                        <p class="lead text-left" align="left">
+                            We make no assumptions about what our users are searching for, and instead give them control over how their recommendation is produced. When the user enters their preferences and clicks 'submit', all of the specified density maps are weighted and combined according to user preference. We then suggest areas of the resulting map that have the highest overall density.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+			<div class="container">
+                <div class="row">
+                    <div class="col-md-12" data-animation-effect="fadeIn">
+                        <h2 class="text text-left" align="left">What's next?</h2>
+                        <p class="lead text-left" align="left">
+                            We're working on applying unsupervised machine learning algorithms, such as K-means clustering, in order to uncover hidden neighborhood dynamics and relationships. Check out <a href="https://github.com/dvdwllc/loc_rec/blob/master/clustering.ipynb">this ipython notebook</a> to see some of the early progress that has been made.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 		
 		
 		<!-- footer start -->
@@ -225,13 +247,15 @@
         <div class="subfooter">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 centered">
+                    <div class="col-md-2 centered">
                         <p>
                             View the code:
                         </p>
                         <h2>
                             <a target="_blank" href="http://github.com/dvdwllc/loc_rec"><i class="fa fa-github"></i></a>
                         </h2>
+                    </div>
+                    <div class="col-md-2 centered">
                         <p>
                             Get in touch:
                         </p>
