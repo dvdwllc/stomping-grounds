@@ -132,6 +132,7 @@ blockquote {
 	color: #fff;
 }
 .banner-image {
+	background-image:url("images/bg-image-1.jpg")
 	vertical-align: middle;
 	max-height:20px;
 	min-height: 100%;
@@ -165,6 +166,30 @@ blockquote {
 
 /* Backgrounds
 ----------------------------------------------------------------------------- */
+.jumbotron {
+  background-image:url('../images/skyline_crop.png');
+  height: 349px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.jumbotron .container {
+  position: relative;
+  top:100px;
+}
+
+.jumbotron h1 {
+  color: #fff;
+  font-size: 48px;
+  font-family: 'Shift', sans-serif;
+  font-weight: bold;
+}
+
+.jumbotron p {
+  font-size: 20px;
+  color: #fff;
+}
+
 .default-bg {
 	background-color: #222222;
 	color: #ffffff;

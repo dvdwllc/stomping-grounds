@@ -6,7 +6,7 @@ import dill
 
 app = Flask(__name__)
 # if you're reading this, don't look at the next line. It's SECRET ;)
-app.config['SECRET_KEY'] = 'F#$6432fdsY$WTREWgfdassu54agfdsjyt;.,;gfd'
+#app.config['SECRET_KEY'] = 'F#$6432fdsY$WTREWgfdassu54agfdsjyt;.,;gfd'
 
 @app.route('/', methods=['GET','POST'])
 def index():
@@ -131,7 +131,8 @@ def recommendation():
         map_df = map_df*multipliers
         # print map_df.head()
 
-         # Boundary conditions for all maps (longitudes as x vals, latitudes as y vals)
+         # Boundary conditions for all maps
+         # (longitudes as x vals, latitudes as y vals)
         lonmin = -76.72
         lonmax = -76.52
         latmin = 39.19

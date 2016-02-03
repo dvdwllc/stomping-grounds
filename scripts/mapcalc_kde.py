@@ -1,8 +1,7 @@
 #!/usr/bin/anaconda/python
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import gaussian_kde
-#import matplotlib.pyplot as plt
 
 
 def compute_kde(POIlons, POIlats, bandwidth):
@@ -94,9 +93,17 @@ def plot_KDE(lons, lats, kernel_density, mapname):
 
 def produce_google_heatmap_points(rec_map, npts, gridpoints, match_tolerance):
     """
-    Add docstring.
+    returns properly formatted lat/lon coordinates for the most highly recommended locations.
     
-    Fix threshold function.
+    :param rec_map: a 1D array of densities that can be reshaped into a npts x npts grid
+        to produce a recommendation heatmap
+
+    :param npts: the number of points along each map edge
+
+    :param gridpoints: a np.vstack of X.ravel() and Y.ravel()
+        where X, Y = np.meshgrid(longitude points, latitude points)
+
+    :param match_tolerance: the threshold density above which to provide points on the map.
     
     Add ability to reduce number of points dynamically (if recommended area is large)
     """
