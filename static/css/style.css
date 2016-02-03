@@ -167,8 +167,8 @@ blockquote {
 /* Backgrounds
 ----------------------------------------------------------------------------- */
 .jumbotron {
-  background-image:url('../images/skyline_crop.png');
-  height: 349px;
+  background-image:url('../images/skyline.jpg');
+  height: 600px;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -326,7 +326,7 @@ blockquote {
 	padding: 8px 15px;
 	font-size: 14px;
 	line-height: 1.42857143;
-	min-width: 160px;
+	min-width: 30px;
 	text-align: center;
 	border-radius: 0;
 	text-transform: uppercase;

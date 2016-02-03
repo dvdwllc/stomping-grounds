@@ -12,15 +12,7 @@ app = Flask(__name__)
 def index():
     # on initial landing, show the default heatmap
     if request.method == 'GET':
-        to_gmap=['new google.maps.LatLng(39.302051282051281, -76.617435897435897)',
-                 'new google.maps.LatLng(39.306923076923077, -76.617435897435897)',
-                 'new google.maps.LatLng(39.287435897435898, -76.607179487179479)',
-                 'new google.maps.LatLng(39.282564102564102, -76.602051282051278)',
-                 'new google.maps.LatLng(39.287435897435898, -76.602051282051278)',
-                 'new google.maps.LatLng(39.282564102564102, -76.596923076923076)',
-                 'new google.maps.LatLng(39.287435897435898, -76.596923076923076)',
-                 'new google.maps.LatLng(39.282564102564102, -76.591794871794875)',
-                 'new google.maps.LatLng(39.287435897435898, -76.591794871794875)']
+        to_gmap=['new google.maps.LatLng(49.302051282051281, -76.617435897435897)']
         return render_template(
             'index.html',
             to_gmap=to_gmap
@@ -33,7 +25,7 @@ def index():
         session['grocery'] = float(request.form['grocery'])
         session['restaurant'] = float(request.form['restaurant'])
         session['schools'] = float(request.form['schools'])
-        session['museums'] = float(request.form['museums'])
+        session['museums'] = 0.0 #float(request.form['museums'])
         session['parks'] = float(request.form['parks'])
         session['liquor'] = float(request.form['liquor'])
         session['libraries'] = float(request.form['libraries'])
@@ -108,7 +100,7 @@ def recommendation():
         session['grocery'] = float(request.form['grocery'])
         session['restaurant'] = float(request.form['restaurant'])
         session['schools'] = float(request.form['schools'])
-        session['museums'] = float(request.form['museums'])
+        session['museums'] = 0.0 #float(request.form['museums'])
         session['parks'] = float(request.form['parks'])
         session['liquor'] = float(request.form['liquor'])
         session['libraries'] = float(request.form['libraries'])

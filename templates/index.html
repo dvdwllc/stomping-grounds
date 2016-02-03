@@ -31,6 +31,8 @@
 
 		<!-- Custom css --> 
 		<link href="../static/css/custom.css" rel="stylesheet">
+
+        <!--for google maps-->
 		<style type="text/css">
         #map { height: 360px; width: 100%}
         #floating-panel {
@@ -68,42 +70,73 @@
 		<header class="header fixed navbar navbar-fixed-top">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6">
+					<div id="top" class="col-md-4">
 
 						<!-- header-left start -->
 						<!-- ================ -->
 						<div class="header-left clearfix">
-
-							<!-- logo -->
-							<div class="logo smooth-scroll">
-								<!--<a href="#banner"><img id="logo" src="images/logo.png" alt="Worthy"></a> -->
-							</div>
 							<!-- name-and-slogan -->
 							<div class="site-name-and-slogan smooth-scroll">
-								<div class="site-name"><a href="#banner"><i class="fa fa-street-view"></i>Stomping Grounds</a></div>
-								<div class="site-slogan">Data-driven location recommendation</div>
+								<div class="site-name"><a href="#banner">Stomping Grounds</a></div>
+								<div class="site-slogan">Data-driven location recommendation for renters, home buyers and entrepreneurs.</div>
 							</div>
 
 						</div>
 						<!-- header-left end -->
 					</div>
+					<div class="col-md-8">
+
+						<!-- header-right start -->
+						<!-- ================ -->
+						<div class="header-right clearfix">
+
+							<!-- main-navigation start -->
+							<!-- ================ -->
+							<div class="main-navigation animated">
+
+								<!-- navbar start -->
+								<!-- ================ -->
+								<nav class="navbar navbar-default" role="navigation">
+									<div class="container-fluid">
+
+										<!-- Toggle get grouped for better mobile display -->
+										<div class="navbar-header">
+											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+												<span class="sr-only">Toggle navigation</span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+											</button>
+										</div>
+
+										<!-- Collect the nav links, forms, and other content for toggling -->
+										<div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
+											<ul class="nav navbar-nav navbar-right">
+												<li class="active"><a href="#top">Home</a></li>
+												<li><a href="#recommendation">Compute a recommendation</a></li>
+                                                <li><a href="../static/clusters.html">View clusters</a></li>
+												<li><a href="#howitworks">Learn More</a></li>
+											</ul>
+										</div>
+
+									</div>
+								</nav>
+								<!-- navbar end -->
+
+							</div>
+							<!-- main-navigation end -->
+
+						</div>
+						<!-- header-right end -->
+					</div>
 				</div>
 			</div>
 		</header>
+		<!-- header end -->
         <!-- banner start -->
         <div class="jumbotron">
             <div class="container">
                 <h1>Find your new Stomping Grounds in Baltimore</h1>
-                <!--
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-2">
-                        <a href="recommendation"><button type="button" class="btn btn-default">New Recommendation</button></a>
-                    </div>
-                    <div class="col-md-4 col-md-offset-2">
-                        <button type="button" class="btn btn-default">View Clusters</button>
-                    </div>
-                </div>
-                -->
             </div>
         </div>
 		<!-- ================ -->
@@ -114,128 +147,279 @@
                 <div class="row centered">
                     <div id="recommendation"></div>
                     <div class="col-md-12" data-animation-effect="fadein">
+                        <div id="recommendation"></div>
                         <h1>
                             Generate a new recommendation
                         </h1>
                         <p class="lead text-left">
-						    Select the factors you care about by checking either the negative (-) or positive (+) positive boxes below.<br>In order to generate a recommendation, you must provide at least one positive factor.
+						    Select the factors you care about by checking either the negative (<i class="fa fa-minus-square"></i>) or positive (<i class="fa fa-plus-square"></i>) positive boxes below.<br>In order to generate a recommendation, you must provide at least one positive factor.
 						</p>
                     </div>
                 </div>
 				<div class="row">
-					<div class="col-md-4" data-animation-effect="fadeIn">
-						<p class="lead text-right" align="right">
-                            <form id='index' method='POST' action='/#recommendation' >
-                                &nbsp;-&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;+<br>
-                                <input type="radio" name="crime" value="-1">&nbsp;
-                                <input type="radio" name="crime" value="0" checked>&nbsp;
-                                <input type="radio" name="crime" value="1">&nbsp; Crime<br>
-
-                                <input type="radio" name="vacancy" value="-1">&nbsp;
-                                <input type="radio" name="vacancy" value="0" checked>&nbsp;
-                                <input type="radio" name="vacancy" value="1">&nbsp; Vacant Properties<br>
-
-                                <input type="radio" name="grocery" value="-1">&nbsp;
-                                <input type="radio" name="grocery" value="0" checked>&nbsp;
-                                <input type="radio" name="grocery" value="1">&nbsp; Grocery Stores<br>
-
-                                <input type="radio" name="restaurant" value="-1">&nbsp;
-                                <input type="radio" name="restaurant" value="0" checked>&nbsp;
-                                <input type="radio" name="restaurant" value="1"> &nbsp;Restaurants<br>
-
-                                <input type="radio" name="schools" value="-1">&nbsp;
-                                <input type="radio" name="schools" value="0" checked>&nbsp;
-                                <input type="radio" name="schools" value="1">&nbsp; Schools (K-12)<br>
-
-                                <input type="radio" name="museums" value="-1">&nbsp;
-                                <input type="radio" name="museums" value="0" checked>&nbsp;
-                                <input type="radio" name="museums" value="1">&nbsp; Museums<br>
-
-                                <input type="radio" name="parks" value="-1">&nbsp;
-                                <input type="radio" name="parks" value="0" checked>&nbsp;
-                                <input type="radio" name="parks" value="1">&nbsp; Public Parks<br>
-
-                                <input type="radio" name="liquor" value="-1">&nbsp;
-                                <input type="radio" name="liquor" value="0" checked>&nbsp;
-                                <input type="radio" name="liquor" value="1">&nbsp; Bars and Liquor Sales<br>
-
-                                <input type="radio" name="libraries" value="-1">&nbsp;
-                                <input type="radio" name="libraries" value="0" checked>&nbsp;
-                                <input type="radio" name="libraries" value="1">&nbsp; Public Libraries<br>
-                                <br>
-        					    <button type="submit" class="btn btn-default">submit</button>
-                            </form>
-     					</p>
-					</div>
-					<div class="col-md-8" data-animation-effect="fadeIn">
+					<div class="col-md-6" data-animation-effect="fadeIn">
     					<div id="map"></div>
-    						<script type="text/javascript">
-								var map, heatmap;
+                        <script type="text/javascript">
+                            var map, heatmap;
 
-								function initMap() {
-									map = new google.maps.Map(document.getElementById('map'), {
-											center: {lat: 39.294631, lng: -76.613419},
-											zoom: 11,
-											scrollwheel: false
-											});
+                            function initMap() {
+                                var styles = [
+                                    {
+                                        "featureType": "all",
+                                        "stylers": [
+                                            {
+                                                "saturation": 0
+                                            },
+                                            {
+                                                "hue": "#e7ecf0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "featureType": "road",
+                                        "stylers": [
+                                            {
+                                                "saturation": -70
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "featureType": "transit",
+                                        "stylers": [
+                                            {
+                                                "visibility": "off"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "featureType": "poi",
+                                        "stylers": [
+                                            {
+                                                "visibility": "off"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "featureType": "water",
+                                        "stylers": [
+                                            {
+                                                "visibility": "simplified"
+                                            },
+                                            {
+                                                "saturation": -60
+                                            }
+                                        ]
+                                    }
+                                ]
+                                styledMap = new google.maps.StyledMapType(styles,
+                                    {name: "Styled Map"});
 
-									heatmap = new google.maps.visualization.HeatmapLayer({
-												data: getPoints(),
-												map: map,
-												radius: 20
-												});
-								}
+                                map = new google.maps.Map(document.getElementById('map'), {
+                                        center: {lat: 39.294631, lng: -76.613419},
+                                        zoom: 12,
+                                        scrollwheel: false
+                                        });
 
-								// Heatmap data: 500 Points
-								function getPoints() {
-								    return [{{ to_gmap|join(', ') }}]
-								    }
-							</script>
-							<script async defer
-							src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpgGfbV2Ogvfk8Y2z3pfa4d9FA4f5tFsU&libraries=visualization&callback=initMap">
-							</script>
-						</div>
-					</div>
+                                heatmap = new google.maps.visualization.HeatmapLayer({
+                                            data: getPoints(),
+                                            map: map,
+                                            radius: 20
+                                            });
+                                map.mapTypes.set('map_style', styledMap);
+                                map.setMapTypeId('map_style');
+                            }
+                            // Heatmap data: 500 Points
+                            function getPoints() {
+                                return [{{ to_gmap|join(', ') }}]
+                                }
+                        </script>
+                        <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpgGfbV2Ogvfk8Y2z3pfa4d9FA4f5tFsU&libraries=visualization&callback=initMap">
+                        </script>
+                    </div>
+                    <form id='index' method='POST' action='/#recommendation'>
+                    <div class="col-md-4" data-animation-effect="fadeIn">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="groc1" name="grocery" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="groc2" name="grocery" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="groc3" name="grocery" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Grocery Stores
+                        <br>
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="rest1" name="restaurant" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="rest2" name="restaurant" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="rest3" name="restaurant" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Restaurants
+                        <br>
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="liq1" name="liquor" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="liq2" name="liquor" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="liq3" name="liquor" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Bars and Liquor Sales
+                        <br>
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="sch1" name="schools" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="sch2" name="schools" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="sch3" name="schools" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Schools (K-12)
+                        <!--
+                        <br>
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="mus1" name="museums" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="mus2" name="museums" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="mus3" name="museums" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Museums
+
+                        <br>
+                        -->
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="park1" name="parks" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="park2" name="parks" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="park3" name="parks" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Public Parks
+                        <br>
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="lib1" name="libraries" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="lib2" name="libraries" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="lib3" name="libraries" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Public Libraries
+                        <br>
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="crime1" name="crime" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="crime2" name="crime" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="crime3" name="crime" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Crime
+                        <br>
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default">
+                                <input type="radio" id="vac1" name="vacancy" value="-1" /><i class="fa fa-minus-square"></i>
+                            </label>
+                            <label class="btn btn-default active">
+                                <input type="radio" id="vac2" name="vacancy" checked="checked" value="0" /><i class="fa fa-square-o"></i>
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" id="vac3" name="vacancy" value="1" /><i class="fa fa-plus-square"></i>
+                            </label>
+                        </div>
+                        Vacant Properties
+                    <!--
+                    </div>
+                    <div class="col-md-2">
+                    -->
+                        <br><br>
+                        <button type="submit" class="btn btn-default">submit</button>
+                    </form>
+                    </div>
 				</div>
-			</div>
+            </div>
+        </div>
         <div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+            <div id="howitworks"></div>
 			<div class="container">
-                <div class="row-md-12"><h1 align="center">How it works</h1></div>
+                <div class="row-md-12"><h1>How it works</h1></div>
                 <div class="row">
-                    <div class="col-md-4 centered" data-animation-effect="fadeIn">
+                    <div class="col-md-6">
+                        <h2 class="text text-left" align="left">Step 1: collect, clean, and geocode data</h2>
+                        <p class="lead text-left" align="left">
+                            We begin by collecting raw datasets from a variety of sources such as <a href="http://www.socrata.com">Socrata</a>, <a href="http://www.Yelp.com">Yelp</a>, and the <a href="http://www.nps.gov/index.htm">National Parks Service</a>.
+                            <br><br>
+                            Individual datasets can be visualized on a map as shown to the right (below, on mobile), but plotting multiple maps at once doesn't yield much visual insight.
+                        </p>
+                    </div>
+                    <div class="col-md-6 centered" data-animation-effect="fadeIn">
                         <br>
 							<iframe width="100%" height="360" frameborder="0" src="https://dvdwllc.cartodb.com/viz/5199023e-b948-11e5-9060-0e31c9be1b51/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-                    </div>
-                    <div class="col-md-8">
-                        <h2 class="text text-left" align="left">Visualizing geospatial data... the old way.</h2>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="text text-left" align="left">Step 2: approximate the density of each dataset</h2>
                         <p class="lead text-left" align="left">
-                            Of course, each of the datasets above can be plotted on a map without any manipulation. However, when multiple datasets are combined, the resulting map can be very difficult to interpret. For example, there are hundreds of restaurants in Baltimore, but only a handful of full grocery stores. If we plot these datasets on the same map, the restaurants significantly overwhelm the grocery stores, even if we play with the sizes and colors of the points. Add a huge dataset, like all of the arrests that occurred in 2015, and the map doesn't make much sense at all.
-                            <br>You can see this effect by toggling the visible datasets in the map to the left (above, on mobile).
+                            Rather than plotting all of the points in a dataset, we can visualize each dataset's density using a technique known as <b>kernel density estimation</b>.
                         </p>
+                    </div>
+                    <div class="col-md-3 centered" data-animation-effect="fadeIn">
+                        <br>
+                        <img class="center-block" src="static/images/data_crop.png" width="330" height="100%">
+                    </div>
+                    <div class="col-md-3 centered" data-animation-effect="fadeIn">
+                        <br>
+                        <img class="center-block" src="static/images/KDE.png" width="360" height="100%">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 centered" data-animation-effect="fadeIn">
-                        <br>
-                        <img src="static/images/KDE.png" width="100%">
-                    </div>
                     <div class="col-md-8">
-                        <h2 class="text text-left" align="left">Kernel density estimation to the rescue!</h2>
+                        <h2 class="text text-left" align="left">Step 3: combine weighted density estimates</h2>
                         <p class="lead text-left" align="left">
-                            Rather than plotting every single point, we can represent a dataset by estimating its density at each point in the map.
+                            When a user enters their preferences and clicks 'submit', the server computes the sum of the weighted density maps and returns latitude and longitude coordinates corresponding to areas with the highest overall density.
                         </p>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4" centered data-animation-effect="fadeIn">
+                    <div class="col-md-4 centered" data-animation-effect="fadeIn">
                         <br>
-                        <img src="static/images/all_maps_crop.png" width="100%">
-                    </div>
-                    <div class="col-md-8">
-                        <h2 class="text text-left" align="left">Combine weighted maps based on user preference</h2>
-                        <p class="lead text-left" align="left">
-                            We make no assumptions about what our users are searching for, and instead give them control over how their recommendation is produced. When the user enters their preferences and clicks 'submit', all of the specified density maps are weighted and combined according to user preference. We then suggest areas of the resulting map that have the highest overall density.
-                        </p>
+                        <img class="center-block" src="static/images/all_maps_crop.png" width="300" height="100%">
                     </div>
                 </div>
             </div>
@@ -246,7 +430,7 @@
                     <div class="col-md-12" data-animation-effect="fadeIn">
                         <h2 class="text text-left" align="left">What's next?</h2>
                         <p class="lead text-left" align="left">
-                            We're working on applying unsupervised machine learning algorithms, such as K-means clustering, in order to uncover hidden neighborhood dynamics and relationships. Check out <a href="https://github.com/dvdwllc/loc_rec/blob/master/clustering.ipynb">this ipython notebook</a> to see some of the early progress that has been made.
+                            We're working on applying unsupervised machine learning algorithms, such as K-means clustering, in order to uncover hidden neighborhood dynamics and relationships. Check out <a href="../static/clusters.html">this page</a> to see some of the progress we've made.
                         </p>
                     </div>
                 </div>
