@@ -109,7 +109,11 @@
         <div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
             <div class="container">
                 <div class="row centered">
-                    <div class="col-md-8 centered">
+                    <div class="col-md-12">
+                        <div id="clusters"></div>
+                        <h1>K-means clustering analysis</h1>
+                    </div>
+                    <div class="col-md-10 centered">
                         <div class="plotdiv" id="65dc5f02-ae33-4672-a6d7-be24e96f8566"></div>
                         <script type="text/javascript">
                             Bokeh.$(function() {
@@ -120,8 +124,10 @@
                             });
                         </script>
                     </div>
-                    <div class="col-md-4">
-                        <h1>Cluster Legend</h1>
+                </div>
+                <div class="row centered">
+                    <div class="col-md-2 centered text-right">
+                        <br><br>
                         <h2 style="color:#3288bd;">Cluster 1</h2>
                         <h2 style="color:#99d594;">Cluster 2</h2>
                         <h2 style="color:#e6f598;">Cluster 3</h2>
@@ -130,8 +136,6 @@
                         <h2 style="color:#fc8d59;">Cluster 6</h2>
                         <h2 style="color:#d53e4f;">Cluster 7</h2>
                     </div>
-                </div>
-                <div class="row centered">
                     <div class="col-md-7 centered">
                         <img src="../static/images/figure_1.png" width="100%">
                     </div>
