@@ -3,6 +3,15 @@ import pandas as pd
 import numpy as np
 import dill
 
+lonmin = -76.72
+lonmax = -76.52
+latmin = 39.19
+latmax = 39.38
+
+# number of points along each map edge
+# (total number of points is npts**2)
+npts = 200
+
 class StaticMapConstructor(object):
     """
     Constructs static kernel density maps from csv files 
@@ -33,14 +42,6 @@ class StaticMapConstructor(object):
     def construct_maps(self):
         self.total_map = pd.DataFrame()
         # Boundary conditions for all maps (longitudes as x vals, latitudes as y vals)
-        lonmin = -76.72
-        lonmax = -76.52
-        latmin = 39.19
-        latmax = 39.38
-
-        # number of points along each map edge
-        # (total number of points is npts**2)
-        npts = 200
 
         x = np.linspace(lonmin, lonmax, npts)
         y = np.linspace(latmin, latmax, npts)
