@@ -1,9 +1,12 @@
-A <em>loc</em>ation <em>rec</em>ommendation engine. Combines location-based datasets such as crime statistics, school locations, restaurant locations, and user-defined points of interest, and produces a recommendation for where the user should search for a home or storefront. 
+Stomping Grounds (http://stomping-grounds.herokuapp.com) is a location recommendation engine for homebuyers and entrepreneurs. Stomping grounds is driven by a variety of geospatial datasets that are cleverly combined using a statistical trick known as <em>Gaussian kernel density estimation</em>.
+
 Currently contains data for Baltimore city only.
 
 This project is built on:
 <ul>
-<li>Python (Pandas, Numpy, Matplotlib)</li>
+<li>Python</li>
 <li>Flask</li>
-<li>SQLite3</li>
+<li>Google Maps</li>
+<li>Cartodb</li>
+<li>Heroku</li>
 </ul>
