@@ -5,8 +5,6 @@ import numpy as np
 import dill
 
 app = Flask(__name__)
-# if you're reading this, don't look at the next line. It's SECRET ;)
-#app.config['SECRET_KEY'] = 'F#$6432fdsY$WTREWgfdassu54agfdsjyt;.,;gfd'
 
 @app.route('/', methods=['GET','POST'])
 def index():
